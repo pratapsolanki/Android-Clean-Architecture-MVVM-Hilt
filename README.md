@@ -5,7 +5,7 @@
 
 Clean architecture is a method of software development in which you should be able to identify what a program performs merely by looking at its source code. Robert C. Martin, also known as Uncle Bob, came up with the Clean Architecture concept in the year 2012.
 
-![alt tag](https://github.com/pratapsolanki/Puppy-adoption-app/blob/master/results/screenshot_1.png)
+![alt tag](https://github.com/jbsolutions2008/Medium_Clone_Conduit/blob/pratap/results/clean_architecture_software.jpg)
 
 ## Why Clean Architecture?
 
