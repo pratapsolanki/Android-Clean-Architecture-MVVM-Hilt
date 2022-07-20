@@ -1,7 +1,7 @@
 # Android Clean Architecture
 
 
-## What is Clean Architecture?
+## 💡 What is Clean Architecture?
 
 Clean architecture is a category of software design pattern for software architecture that follows the concepts of clean code and implements [SOLID principles](https://codersee.com/solid-principles-with-kotlin-examples/)
 
@@ -11,7 +11,7 @@ Clean architecture is a method of software development in which you should be ab
 
 ![alt tag](https://github.com/jbsolutions2008/Medium_Clone_Conduit/blob/pratap/results/clean_architecture_software.jpg)
 
-## Why Clean Architecture?
+## 💡 Why Clean Architecture?
 
 Separation of Concerns — Separation of code in different modules or sections with specific responsibilities making it easier for maintenance and further modification.
 Loose coupling — flexible code anything can be easily be changed without changing the system
