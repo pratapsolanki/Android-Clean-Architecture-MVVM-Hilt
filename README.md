@@ -56,7 +56,7 @@ This is a sample presentation of Clean Architecture with MVVM in Android.
 
 WebSite [Conduit](https://demo.realworld.io/#/)
 
-API Collection [Conduit](https://demo.realworld.io/#/)
+API Collection [Conduit](https://github.com/jbsolutions2008/Medium_Clone_Conduit/blob/pratap/results/Conduit.postman_collection.json)
 
 
 ##  💡 Features
