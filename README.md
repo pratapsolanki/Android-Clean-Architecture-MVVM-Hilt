@@ -18,7 +18,7 @@ Loose coupling — flexible code anything can be easily be changed without chang
 Easily Testable
 
 
-## Layers of clean architecture
+## 💡 Layers of clean architecture
 
 - **Presentation or UI:**
   A layer that interacts with the UI, mainly Android Stuff like Activities, Fragments, ViewModel, etc. It is dependent on Use Cases.
@@ -29,7 +29,7 @@ Easily Testable
 
 ![alt tag](https://github.com/jbsolutions2008/Medium_Clone_Conduit/blob/pratap/results/clean_architecture.jpg)
 
-## Tech stack & Open-source libraries
+## 💡 Tech stack & Open-source libraries
 
 - Kotlin, Coroutines + Flow for asynchronous.
 - Dependency injection with Hilt.
@@ -45,7 +45,7 @@ Easily Testable
 - Leak Canary - memory leak detection library for Android.
 
 
-## Medium Clone
+## 💡 Medium Clone
 
 This is a sample presentation of Clean Architecture with MVVM in Android.
 
@@ -54,7 +54,7 @@ WebSite [Conduit](https://demo.realworld.io/#/)
 API Collection [Conduit](https://demo.realworld.io/#/)
 
 
-##  Features
+##  💡 Features
 
 **Authentication**
 
