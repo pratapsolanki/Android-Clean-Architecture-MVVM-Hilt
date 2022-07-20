@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/navgraph"
+    app:startDestination="@id/loginFragment">
+
+    <fragment
+        android:id="@+id/signupFragment"
+        android:name="com.realworld.io.presentation.signup.SignupFragment"
+        android:label="fragment_signup"
+        tools:layout="@layout/fragment_signup" >
+        <action
+            android:id="@+id/action_signupFragment_to_dashBaord"
+            app:destination="@id/dashBaord" />
+    </fragment>
+    <fragment
+        android:id="@+id/loginFragment"
+        android:name="com.realworld.io.presentation.login.LoginFragment"
+        android:label="fragment_login"
+        tools:layout="@layout/fragment_login" >
+        <action
+            android:id="@+id/action_loginFragment_to_signupFragment"
+            app:destination="@id/signupFragment"
+            app:enterAnim="@android:anim/fade_in"
+            app:exitAnim="@android:anim/fade_out"
+            app:popEnterAnim="@android:anim/fade_in"
+            app:popExitAnim="@android:anim/fade_out"
+            app:popUpTo="@id/loginFragment"
+            app:popUpToInclusive="false" />
+        <action
+            android:id="@+id/action_loginFragment_to_dashBaord"
+            app:destination="@id/dashBaord"
+            app:popUpTo="@id/loginFragment"
+            app:popUpToInclusive="true" />
+    </fragment>
+    <fragment
+        android:id="@+id/dashBaord"
+        android:name="com.realworld.io.presentation.dashboard.DashBaord"
+        android:label="fragment_dash_baord"
+        tools:layout="@layout/fragment_dash_baord" >
+        <action
+            android:id="@+id/action_dashBaord_to_signleArticle"
+            app:destination="@id/signleArticle" />
+        <action
+            android:id="@+id/action_dashBaord_pop_including_loginFragment"
+            app:popUpTo="@id/dashBaord"
+            app:popUpToInclusive="true" />
+        <action
+            android:id="@+id/action_dashBaord_to_userprofile"
+            app:destination="@id/userprofile" />
+        <action
+            android:id="@+id/action_dashBaord_to_addArticleFragment"
+            app:destination="@id/addArticleFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/signleArticle"
+        android:name="com.realworld.io.presentation.singlearticle.SignleArticle"
+        android:label="fragment_signle_article"
+        tools:layout="@layout/fragment_signle_article" >
+        <action
+            android:id="@+id/action_signleArticle_to_userprofile"
+            app:destination="@id/userprofile" />
+        <action
+            android:id="@+id/action_signleArticle_to_addArticleFragment"
+            app:destination="@id/addArticleFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/userprofile"
+        android:name="com.realworld.io.presentation.userprofile.Userprofile"
+        android:label="fragment_userprofile"
+        tools:layout="@layout/fragment_userprofile" >
+        <action
+            android:id="@+id/action_userprofile_to_addArticleFragment"
+            app:destination="@id/addArticleFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/addArticleFragment"
+        android:name="com.realworld.io.presentation.addarticle.AddArticleFragment"
+        android:label="fragment_add_article"
+        tools:layout="@layout/fragment_add_article" />
+</navigation>
