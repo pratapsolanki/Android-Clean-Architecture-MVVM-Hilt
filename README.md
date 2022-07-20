@@ -1,4 +1,4 @@
-# Android Clean Architecture
+# Android Clean Architecture with MVVM using Jetpack component.
 
 
 ## 💡 What is Clean Architecture?
@@ -29,23 +29,28 @@ Easily Testable
 
 ![alt tag](https://github.com/jbsolutions2008/Medium_Clone_Conduit/blob/pratap/results/clean_architecture.jpg)
 
-## 💡 Tech stack & Open-source libraries
+## 💡 Advantages of Using Clean Architecture
+- Easily testable.
+- Scalable.
+- Your team can add new features even more quickly.
+- The project is even easier to maintain.
 
-- Kotlin, Coroutines + Flow for asynchronous.
-- Dependency injection with Hilt.
-- Jetpack Navigation
-- ViewModel - UI related data holder, lifecycle aware.
-- Room Persistence - local database.
-- MVVM Architecture (View - DataBinding - ViewModel - Model)
-- Repository pattern
-- Glide - loading images.
-- Retrofit2 & OkHttp3 - construct the REST APIs and paging network data.
-- Gson - JSON representation.
-- Material-Components - Material design components.
-- Leak Canary - memory leak detection library for Android.
+## 💡 Tech stack & Modern Library Tools
+
+- [Kotlin, Coroutines + Flow for asynchronous](https://developer.android.com/kotlin/coroutines)
+- [Dependency injection with Hilt](https://developer.android.com/training/dependency-injection/hilt-android)
+- [Jetpack Navigation](https://developer.android.com/guide/navigation/)
+- [ViewModel - UI related data holder, lifecycle aware](https://developer.android.com/topic/libraries/architecture/viewmodel)
+- [Room Persistence - local database](https://developer.android.com/training/data-storage/room)
+- [MVVM Architecture (View - DataBinding - ViewModel - Model)](https://developer.android.com/topic/libraries/view-binding)
+- [Glide - loading images](https://github.com/bumptech/glide)
+- [Retrofit2 & OkHttp3 - construct the REST APIs and paging network data](https://square.github.io/retrofit/)
+- [Gson - JSON representation](https://github.com/google/gson)
+- [Material-Components - Material design components](https://material.io/design)
+- [Leak Canary - memory leak detection library for Android](https://github.com/square/leakcanary)
 
 
-## 💡 Medium Clone
+## 💡 Project: Medium Clone
 
 This is a sample presentation of Clean Architecture with MVVM in Android.
 
