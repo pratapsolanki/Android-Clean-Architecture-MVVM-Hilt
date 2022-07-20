@@ -1,4 +1,4 @@
-package com.realworld.io.domain.remote
+package com.realworld.io.data.remote
 
 
 import com.realworld.io.model.*

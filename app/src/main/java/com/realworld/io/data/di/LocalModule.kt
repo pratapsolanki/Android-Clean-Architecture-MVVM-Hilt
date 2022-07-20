@@ -1,4 +1,4 @@
-package com.realworld.io.domain.di
+package com.realworld.io.data.di
 
 import android.app.Application
 import com.example.dagger_hilt.dao.AppDao
