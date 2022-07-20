@@ -1,4 +1,4 @@
-# Android Clean Architecture with MVVM using Jetpack component.
+# Android Clean Architecture with MVVM using Jetpack component
 
 
 ## 💡 What is Clean Architecture?
