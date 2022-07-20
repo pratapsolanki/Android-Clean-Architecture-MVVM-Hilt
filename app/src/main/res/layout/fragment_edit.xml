@@ -4,7 +4,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    tools:context=".presentation.addarticle.AddArticleFragment">
+    tools:context=".presentation.editarticle.EditFragment">
 
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -67,7 +67,7 @@
 
 
         <com.google.android.material.button.MaterialButton
-            android:id="@+id/addArticleBtn"
+            android:id="@+id/updateArticleBtn"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_below="@+id/inputBody"
@@ -75,7 +75,7 @@
             android:layout_marginTop="32dp"
             android:backgroundTint="@color/purple_700"
             android:padding="14dp"
-            android:text="Add Article"
+            android:text="Update Article"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="1.0"
             app:layout_constraintStart_toStartOf="parent"

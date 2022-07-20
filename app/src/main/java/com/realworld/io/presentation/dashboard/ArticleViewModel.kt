@@ -55,4 +55,11 @@ class ArticleViewModel @Inject constructor(val articalRepository: Repositoryimpl
         }
     }
 
+    fun deleteArticle(articleModel: ArticleModel){
+        CoroutineScope(Dispatchers.IO).launch {
+            roomRepository.deleteArticle(articleModel)
+            fetchOfflineArticle()
+        }
+    }
+
 }

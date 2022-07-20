@@ -32,12 +32,10 @@
 
         <ImageView
             android:layout_weight="2"
-            android:id="@+id/topAppBar"
+            android:id="@+id/changeBtn"
             android:layout_width="wrap_content"
             android:src="@drawable/ic_baseline_create_24"
-            android:layout_height="wrap_content"
-            app:menu="@menu/article_option_menu"
-            app:title="@string/app_name" />
+            android:layout_height="wrap_content" />
     </LinearLayout>
 
 </androidx.cardview.widget.CardView>

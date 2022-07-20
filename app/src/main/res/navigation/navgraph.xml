@@ -52,6 +52,9 @@
         <action
             android:id="@+id/action_dashBaord_to_addArticleFragment"
             app:destination="@id/addArticleFragment" />
+        <action
+            android:id="@+id/action_dashBaord_to_editFragment"
+            app:destination="@id/editFragment" />
     </fragment>
     <fragment
         android:id="@+id/signleArticle"
@@ -79,4 +82,14 @@
         android:name="com.realworld.io.presentation.addarticle.AddArticleFragment"
         android:label="fragment_add_article"
         tools:layout="@layout/fragment_add_article" />
+    <fragment
+        android:id="@+id/editFragment"
+        android:name="com.realworld.io.presentation.editarticle.EditFragment"
+        android:label="fragment_edit"
+        tools:layout="@layout/fragment_edit" >
+        <argument
+            android:name="sampleData"
+            app:argType="com.realworld.io.model.ArticleModel"
+            app:nullable="true"/>
+    </fragment>
 </navigation>

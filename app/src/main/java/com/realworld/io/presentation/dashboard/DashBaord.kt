@@ -1,13 +1,15 @@
 package com.realworld.io.presentation.dashboard
 
+import android.app.AlertDialog
 import android.os.Bundle
-import android.view.*
-import android.widget.PopupMenu
-import androidx.core.view.get
+import android.view.LayoutInflater
+import android.view.View
+import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
 import androidx.navigation.fragment.findNavController
+import androidx.navigation.fragment.navArgs
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.realworld.io.R
 import com.realworld.io.adapter.ArticleAdapter
@@ -18,13 +20,14 @@ import dagger.hilt.android.AndroidEntryPoint
 import javax.inject.Inject
 
 @AndroidEntryPoint
-class DashBaord : Fragment() {
+class DashBaord : Fragment() , ArticleAdapter.OnItemClickListener{
 
     private val viewModel : ArticleViewModel by viewModels()
     private  var _binding: FragmentDashBaordBinding?= null
     private val binding get() = _binding!!
-    @Inject lateinit var articleAdapter: ArticleAdapter
+    lateinit var articleAdapter: ArticleAdapter
     @Inject lateinit var tokenManager: TokenManager
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
     }
@@ -47,26 +50,7 @@ class DashBaord : Fragment() {
         binding.progressBar.gone()
     }
 
-    private fun openOptionmenu(position: Int) {
-        val popupMenu = PopupMenu(requireActivity() , binding.articleRcv[position].findViewById(R.id.topAppBar))
-        popupMenu.inflate(R.menu.article_option_menu)
 
-        popupMenu.setOnMenuItemClickListener {
-            when (it.itemId) {
-                R.id.update -> {
-                    true
-                }
-                R.id.delete ->{
-                    true
-                }
-                else ->{
-                    false
-                }
-            }
-        }
-        popupMenu.show()
-
-    }
 
     private fun toobarActionHandle() {
         binding.topAppBar.setOnMenuItemClickListener {
@@ -99,44 +83,20 @@ class DashBaord : Fragment() {
 
 
     private fun iniRecyclerview() {
+        articleAdapter = ArticleAdapter(ArrayList(),this@DashBaord)
         binding.articleRcv.layoutManager = LinearLayoutManager(requireActivity())
         binding.articleRcv.adapter = articleAdapter
-        articleAdapter.registerInterface(object : ArticleAdapter.OnClickItemListerner {
-            override fun item(position: Int, model: ArticleModel) {
-                openOptionmenu(position)
-                Logger.d("$position")
-            }
 
-        })
     }
 
     private fun bindObserver() {
         binding.progressBar.gone()
-//        viewModel.articleList.observe(requireActivity(), Observer {
-//            when (it) {
-//                is Resource.Success -> {
-//                    Logger.d(it.data.toString())
-//                    it.data?.let {
-//                        articleAdapter.setArticle(it.articles)
-//                        binding.progressBar.gone()
-//                    }
-//                }
-//                is Resource.Error -> {
-//                    binding.progressBar.gone()
-//                    Logger.d(it.errorMessage.toString() + "Error")
-//                }
-//                is Resource.Loading -> {
-//                    binding.progressBar.visible()
-//                }
-//            }
-//        })
-
         viewModel.offlineArticleList.observe(requireActivity(), Observer {
             when (it) {
                 is Resource.Success -> {
                     Logger.d(it.data.toString())
                     it.data?.let {
-                        articleAdapter.setArticle(it)
+                        articleAdapter.setData(it)
                         binding.progressBar.gone()
                     }
                 }
@@ -154,6 +114,61 @@ class DashBaord : Fragment() {
     override fun onDestroy() {
         super.onDestroy()
         _binding = null
+    }
+
+    override fun itemClick(view: View, position: Int) {
+
+    }
+
+    override fun btnClick(view: View, position: Int, article: ArticleModel) {
+        openDialog(article)
+        Logger.d("$position click")
+        articleAdapter.notifyDataSetChanged()
+    }
+
+    private fun openDialog(article: ArticleModel) {
+        val alertDialog = AlertDialog.Builder(requireContext())
+        alertDialog.apply {
+            setIcon(R.drawable.demo_avatar)
+            setTitle("Want to make Changes?")
+            setMessage("You can Update and Delete Data!!")
+            setPositiveButton("Delete") { _, _ ->
+                openConfirmDialogBox(article)
+            }
+            setNegativeButton("Update") { _, _ ->
+                navigateToUpdateFragment(article)
+            }
+            setNeutralButton("Cancel") { _, _ ->
+                requireContext().toast("clicked neutral button")
+            }
+        }.create().show()
+    }
+
+    private fun navigateToUpdateFragment(article: ArticleModel) {
+        val action =  DashBaordDirections.actionDashBaordToEditFragment(
+            article
+        )
+        findNavController().navigate(action)
+    }
+
+    private fun openConfirmDialogBox(article: ArticleModel) {
+        val alertDialog = AlertDialog.Builder(requireContext())
+        alertDialog.apply {
+            setIcon(R.drawable.demo_avatar)
+            setTitle("Are You Really want to Delete it?")
+            setMessage("This change cant be Revert....")
+            setPositiveButton("Yes") { _, _ ->
+                deleteArticleAction(article)
+            }
+            setNegativeButton("No") { _, _ ->
+
+            }
+        }.create().show()
+    }
+
+    private fun deleteArticleAction(article: ArticleModel) {
+        viewModel.deleteArticle(article)
+        articleAdapter.notifyDataSetChanged()
     }
 
 }

@@ -4,6 +4,9 @@
     <option name="filePathToZoomLevelMap">
       <map>
         <entry key="..\:/Pratap/JetPack/RealWorld Io/RealWorldIO/RealWorld IO/app/src/main/res/layout/activity_main.xml" value="0.27291666666666664" />
+        <entry key="app/src/main/res/layout/fragment_add_article.xml" value="0.25" />
+        <entry key="app/src/main/res/layout/fragment_edit.xml" value="0.25" />
+        <entry key="app/src/main/res/layout/single_article.xml" value="0.25" />
       </map>
     </option>
   </component>
