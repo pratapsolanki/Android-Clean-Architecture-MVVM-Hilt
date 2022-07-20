@@ -3,6 +3,10 @@
 
 ## What is Clean Architecture?
 
+Clean architecture is a category of software design pattern for software architecture that follows the concepts of clean code and implements [SOLID principles](https://codersee.com/solid-principles-with-kotlin-examples/)
+
+It’s essentially a collection of best practice design principles that help you keep business logic, or domain logic, together and minimize the dependencies within the system.
+
 Clean architecture is a method of software development in which you should be able to identify what a program performs merely by looking at its source code. Robert C. Martin, also known as Uncle Bob, came up with the Clean Architecture concept in the year 2012.
 
 ![alt tag](https://github.com/jbsolutions2008/Medium_Clone_Conduit/blob/pratap/results/clean_architecture_software.jpg)
@@ -28,7 +32,7 @@ Easily Testable
 ## Tech stack & Open-source libraries
 
 - Kotlin, Coroutines + Flow for asynchronous.
-- Koin for dependency injection.
+- Dependency injection with Hilt.
 - Jetpack Navigation
 - ViewModel - UI related data holder, lifecycle aware.
 - Room Persistence - local database.
@@ -37,10 +41,8 @@ Easily Testable
 - Glide - loading images.
 - Retrofit2 & OkHttp3 - construct the REST APIs and paging network data.
 - Gson - JSON representation.
-- Timber - logging.
 - Material-Components - Material design components.
 - Leak Canary - memory leak detection library for Android.
-
 
 
 ## Medium Clone
