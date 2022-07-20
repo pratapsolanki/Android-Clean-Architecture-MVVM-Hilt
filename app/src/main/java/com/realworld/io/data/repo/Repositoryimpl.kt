@@ -1,7 +1,7 @@
 package com.realworld.io.data.repo
 
 
-import com.realworld.io.domain.remote.ApiService
+import com.realworld.io.data.remote.ApiService
 import com.realworld.io.model.*
 import retrofit2.Response
 import javax.inject.Inject

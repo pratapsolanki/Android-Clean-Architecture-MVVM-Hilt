@@ -1,7 +1,7 @@
-package com.realworld.io.domain.di
+package com.realworld.io.data.di
 
 import android.content.Context
-import com.realworld.io.domain.remote.ApiService
+import com.realworld.io.data.remote.ApiService
 import com.realworld.io.util.ApiConstants.BASE_URL
 import com.realworld.io.util.AuthInterceptor
 import dagger.Module
