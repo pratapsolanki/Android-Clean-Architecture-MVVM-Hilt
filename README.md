@@ -27,7 +27,7 @@ Easily Testable
 - **Data:**
   It includes the domain layer. It would implement the interface exposed by domain layer and dispenses data to app
 
-![alt tag](https://github.com/jbsolutions2008/Medium_Clone_Conduit/blob/pratap/results/clean_architecture.jpg)
+![alt tag](https://github.com/jbsolutions2008/Medium_Clone_Conduit/blob/pratap/results/clean_arch.png)
 
 ## 💡 Advantages of Using Clean Architecture
 - Easily testable.
@@ -134,3 +134,5 @@ API Collection [Conduit](https://github.com/jbsolutions2008/Medium_Clone_Conduit
 - Unfollow Profile
 
 # Under devlopement
+
+# Thanks for reading! 
