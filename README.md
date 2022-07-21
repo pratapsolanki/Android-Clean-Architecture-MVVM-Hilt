@@ -58,6 +58,16 @@ WebSite [Conduit](https://demo.realworld.io/#/)
 
 API Collection [Conduit](https://github.com/jbsolutions2008/Medium_Clone_Conduit/blob/pratap/results/Conduit.postman_collection.json)
 
+##  💡 Screnshots
+![alt tag](https://github.com/jbsolutions2008/Medium_Clone_Conduit/blob/pratap/results/1.PNG)
+![alt tag](https://github.com/jbsolutions2008/Medium_Clone_Conduit/blob/pratap/results/2.PNG)
+![alt tag](https://github.com/jbsolutions2008/Medium_Clone_Conduit/blob/pratap/results/3.PNG)
+![alt tag](https://github.com/jbsolutions2008/Medium_Clone_Conduit/blob/pratap/results/4.PNG)
+![alt tag](https://github.com/jbsolutions2008/Medium_Clone_Conduit/blob/pratap/results/5.PNG)
+![alt tag](https://github.com/jbsolutions2008/Medium_Clone_Conduit/blob/pratap/results/6.PNG)
+![alt tag](https://github.com/jbsolutions2008/Medium_Clone_Conduit/blob/pratap/results/7.PNG)
+
+
 
 ##  💡 Features
 
