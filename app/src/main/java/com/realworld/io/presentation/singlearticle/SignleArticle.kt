@@ -5,12 +5,15 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.navigation.fragment.navArgs
 import com.realworld.io.databinding.FragmentSignleArticleBinding
+import com.realworld.io.presentation.editarticle.EditFragmentArgs
 
 class SignleArticle : Fragment() {
 
     private  var _binding: FragmentSignleArticleBinding?= null
     private val binding get() = _binding!!
+    val args: SignleArticleArgs by navArgs()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -25,8 +28,8 @@ class SignleArticle : Fragment() {
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        binding.title.text = arguments?.getString("title")
-        binding.body.text = arguments?.getString("body")
+        binding.title.text = args.singleArticle.title
+        binding.body.text = args.singleArticle.body
         super.onViewCreated(view, savedInstanceState)
     }
 

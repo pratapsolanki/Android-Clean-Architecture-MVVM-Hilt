@@ -20,7 +20,7 @@ class ArticleAdapter(private var articleModel: List<ArticleModel> , private val 
         holder.binding.titleText.text = article.title
 
         holder.itemView.setOnClickListener {
-            listener.itemClick(it,position)
+            listener.itemClick(it,position,article)
         }
 
         holder.binding.changeBtn.setOnClickListener {
@@ -34,7 +34,7 @@ class ArticleAdapter(private var articleModel: List<ArticleModel> , private val 
     }
 
     interface OnItemClickListener{
-        fun itemClick(view: View, position: Int)
+        fun itemClick(view: View, position: Int, article: ArticleModel)
         fun btnClick(view: View, position: Int, article: ArticleModel)
     }
 
