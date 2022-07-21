@@ -3,7 +3,7 @@
 
 ## 💡 What is Clean Architecture?
 
-Clean architecture is a category of software design pattern for software architecture that follows the concepts of clean code and implements [SOLID principles](https://codersee.com/solid-principles-with-kotlin-examples/)
+Clean architecture is a category of software design pattern for software architecture that follows the concepts of clean code and implements [SOLID principles](https://www.jbsolutions.in/download/downloads/SOLID_PRINCIPLE_WITH_KOTLIN.pdf/)
 
 It’s essentially a collection of best practice design principles that help you keep business logic, or domain logic, together and minimize the dependencies within the system.
 
