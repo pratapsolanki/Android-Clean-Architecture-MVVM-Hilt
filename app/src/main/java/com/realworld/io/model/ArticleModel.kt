@@ -1,8 +1,11 @@
 package com.realworld.io.model
 
+import android.os.Parcelable
 import androidx.room.Entity
 import androidx.room.PrimaryKey
+import kotlinx.parcelize.Parcelize
 
+@Parcelize
 @Entity(tableName = "article_table")
 data class ArticleModel (
     @PrimaryKey(autoGenerate = true) val id: Int = 0,
@@ -18,4 +21,4 @@ data class ArticleModel (
     val following: Boolean = false,
     val createdAt: String ="",
     val updatedAt: String ="",
-)
+) : Parcelable

@@ -8,7 +8,7 @@
     <fragment
         android:id="@+id/signupFragment"
         android:name="com.realworld.io.presentation.signup.SignupFragment"
-        android:label="fragment_signup"
+        android:label=""
         tools:layout="@layout/fragment_signup" >
         <action
             android:id="@+id/action_signupFragment_to_dashBaord"
@@ -17,7 +17,7 @@
     <fragment
         android:id="@+id/loginFragment"
         android:name="com.realworld.io.presentation.login.LoginFragment"
-        android:label="fragment_login"
+        android:label=""
         tools:layout="@layout/fragment_login" >
         <action
             android:id="@+id/action_loginFragment_to_signupFragment"
@@ -36,8 +36,8 @@
     </fragment>
     <fragment
         android:id="@+id/dashBaord"
-        android:name="com.realworld.io.presentation.dashboard.DashBaord"
-        android:label="fragment_dash_baord"
+        android:name="com.realworld.io.presentation.dashboard.DashBoardFragment"
+        android:label="Articles"
         tools:layout="@layout/fragment_dash_baord" >
         <action
             android:id="@+id/action_dashBaord_to_signleArticle"
@@ -52,11 +52,18 @@
         <action
             android:id="@+id/action_dashBaord_to_addArticleFragment"
             app:destination="@id/addArticleFragment" />
+        <action
+            android:id="@+id/action_dashBaord_to_editFragment"
+            app:destination="@id/editFragment" />
+
+        <action
+            android:id="@+id/action_dashBaord_to_confirmFragment2"
+            app:destination="@id/confirmFragment2" />
     </fragment>
     <fragment
         android:id="@+id/signleArticle"
         android:name="com.realworld.io.presentation.singlearticle.SignleArticle"
-        android:label="fragment_signle_article"
+        android:label="Article Detail"
         tools:layout="@layout/fragment_signle_article" >
         <action
             android:id="@+id/action_signleArticle_to_userprofile"
@@ -64,11 +71,14 @@
         <action
             android:id="@+id/action_signleArticle_to_addArticleFragment"
             app:destination="@id/addArticleFragment" />
+        <argument
+            android:name="SingleArticle"
+            app:argType="com.realworld.io.model.ArticleModel" />
     </fragment>
     <fragment
         android:id="@+id/userprofile"
         android:name="com.realworld.io.presentation.userprofile.Userprofile"
-        android:label="fragment_userprofile"
+        android:label="Profile"
         tools:layout="@layout/fragment_userprofile" >
         <action
             android:id="@+id/action_userprofile_to_addArticleFragment"
@@ -77,6 +87,25 @@
     <fragment
         android:id="@+id/addArticleFragment"
         android:name="com.realworld.io.presentation.addarticle.AddArticleFragment"
-        android:label="fragment_add_article"
+        android:label="Add Article"
         tools:layout="@layout/fragment_add_article" />
+    <fragment
+        android:id="@+id/editFragment"
+        android:name="com.realworld.io.presentation.editarticle.EditFragment"
+        android:label="Edit Article"
+        tools:layout="@layout/fragment_edit" >
+        <argument
+            android:name="sampleData"
+            app:argType="com.realworld.io.model.ArticleModel"
+            app:nullable="true"/>
+    </fragment>
+    <dialog
+        android:id="@+id/confirmFragment2"
+        android:name="com.realworld.io.presentation.dialog.ConfirmFragment"
+        android:label="fragment_confirm"
+        tools:layout="@layout/fragment_confirm" >
+        <action
+            android:id="@+id/action_confirmFragment2_self"
+            app:destination="@id/confirmFragment2" />
+    </dialog>
 </navigation>
