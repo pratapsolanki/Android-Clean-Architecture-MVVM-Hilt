@@ -36,8 +36,8 @@
     </fragment>
     <fragment
         android:id="@+id/dashBaord"
-        android:name="com.realworld.io.presentation.dashboard.DashBaord"
-        android:label=""
+        android:name="com.realworld.io.presentation.dashboard.DashBoardFragment"
+        android:label="Articles"
         tools:layout="@layout/fragment_dash_baord" >
         <action
             android:id="@+id/action_dashBaord_to_signleArticle"
@@ -55,6 +55,10 @@
         <action
             android:id="@+id/action_dashBaord_to_editFragment"
             app:destination="@id/editFragment" />
+
+        <action
+            android:id="@+id/action_dashBaord_to_confirmFragment2"
+            app:destination="@id/confirmFragment2" />
     </fragment>
     <fragment
         android:id="@+id/signleArticle"
@@ -95,4 +99,13 @@
             app:argType="com.realworld.io.model.ArticleModel"
             app:nullable="true"/>
     </fragment>
+    <dialog
+        android:id="@+id/confirmFragment2"
+        android:name="com.realworld.io.presentation.dialog.ConfirmFragment"
+        android:label="fragment_confirm"
+        tools:layout="@layout/fragment_confirm" >
+        <action
+            android:id="@+id/action_confirmFragment2_self"
+            app:destination="@id/confirmFragment2" />
+    </dialog>
 </navigation>
