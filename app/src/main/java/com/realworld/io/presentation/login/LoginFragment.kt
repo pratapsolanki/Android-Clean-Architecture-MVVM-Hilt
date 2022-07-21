@@ -94,7 +94,7 @@ class LoginFragment : Fragment() {
                 is Resource.Success -> {
                     Logger.d(it.data.toString())
                     binding.progressBar.gone()
-                    tokenManager.saveToken(it.data!!.user.token)
+                    tokenManager.saveToken(it.data!!.user.token,it.data!!.user.username)
                     findNavController().navigate(R.id.action_loginFragment_to_dashBaord)
                 }
                 is Resource.Error -> {

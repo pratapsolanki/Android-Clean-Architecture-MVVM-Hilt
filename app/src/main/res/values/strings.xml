@@ -12,4 +12,15 @@
     <string name="update_btn_text">Update</string>
     <string name="delete_btn_text">delete</string>
     <string name="category_text">Motivation</string>
+    <string name="category">Please Choose Category</string>
+
+
+    <string-array name="programming_languages">
+        <item>Java</item>
+        <item>Kotlin</item>
+        <item>Python</item>
+        <item>CPP</item>
+    </string-array>
+
 </resources>
+

@@ -93,18 +93,36 @@
 
         </com.google.android.material.textfield.TextInputLayout>
 
+        <com.google.android.material.textfield.TextInputLayout
+            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.ExposedDropdownMenu"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/multiSelect"
+            android:layout_marginTop="16dp"
+            app:layout_constraintTop_toBottomOf="@+id/inputDesc"
+            tools:layout_editor_absoluteX="20dp">
+
+        <AutoCompleteTextView
+            android:id="@+id/autocompleteTV"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:inputType="none"
+            android:text="@string/category" />
+
+        </com.google.android.material.textfield.TextInputLayout>
         <com.google.android.material.button.MaterialButton
             android:id="@+id/updateArticleBtn"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_below="@+id/inputDesc"
+            android:layout_below="@+id/multiSelect"
             android:layout_marginTop="32dp"
             android:backgroundTint="@color/purple_700"
             android:text="Update Article"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="1.0"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/inputDesc"
+            app:layout_constraintTop_toBottomOf="@+id/multiSelect"
             tools:ignore="TextContrastCheck" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>

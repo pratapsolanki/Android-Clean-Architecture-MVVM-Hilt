@@ -107,7 +107,7 @@ class SignupFragment : Fragment() {
                 is Resource.Success -> {
                     binding.progressBar.gone()
                     Logger.d(it.data.toString())
-                    tokenManager.saveToken(it.data!!.user.token)
+                    tokenManager.saveToken(it.data!!.user.token,it.data!!.user.username)
                     findNavController().navigate(R.id.action_signupFragment_to_dashBaord)
                 }
                 is Resource.Error -> {

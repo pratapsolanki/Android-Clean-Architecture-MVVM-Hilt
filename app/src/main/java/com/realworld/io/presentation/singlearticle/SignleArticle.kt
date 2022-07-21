@@ -5,7 +5,9 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ArrayAdapter
 import androidx.navigation.fragment.navArgs
+import com.realworld.io.R
 import com.realworld.io.databinding.FragmentSignleArticleBinding
 import com.realworld.io.presentation.editarticle.EditFragmentArgs
 
@@ -28,8 +30,19 @@ class SignleArticle : Fragment() {
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        binding.title.text = args.singleArticle.title
-        binding.desc.text = args.singleArticle.description
+
+        binding.apply{
+            args.singleArticle.let {
+                title.text =   it.title
+                desc.text = it.description
+                shortDesc.text = it.body
+                userName.text = it.username
+                date.text = it.createdAt.toString()
+                category.text = it.category
+            }
+
+        }
+
         super.onViewCreated(view, savedInstanceState)
     }
 

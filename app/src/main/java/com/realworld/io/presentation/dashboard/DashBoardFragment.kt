@@ -13,17 +13,19 @@ import com.realworld.io.R
 import com.realworld.io.adapter.ArticleAdapter
 import com.realworld.io.databinding.FragmentDashBaordBinding
 import com.realworld.io.model.ArticleModel
+import com.realworld.io.model.ArticleX
 import com.realworld.io.util.*
 import dagger.hilt.android.AndroidEntryPoint
 import javax.inject.Inject
 
 @AndroidEntryPoint
-class DashBoardFragment : Fragment() , ArticleAdapter.OnItemClickListener{
+class DashBoardFragment : Fragment() , ArticleAdapter.OnItemClickListener , RemoteArticleAdapter.OnItemClickListener{
 
     private val viewModel : ArticleViewModel by viewModels()
     private  var _binding: FragmentDashBaordBinding?= null
     private val binding get() = _binding!!
     lateinit var articleAdapter: ArticleAdapter
+    lateinit var remoteArticleAdapter: RemoteArticleAdapter
     @Inject lateinit var tokenManager: TokenManager
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -61,7 +63,13 @@ class DashBoardFragment : Fragment() , ArticleAdapter.OnItemClickListener{
 
 
     private fun iniRecyclerview() {
+
         articleAdapter = ArticleAdapter(ArrayList(),this@DashBoardFragment)
+        binding.articleRcv.layoutManager = LinearLayoutManager(requireActivity())
+        binding.articleRcv.adapter = articleAdapter
+
+
+        remoteArticleAdapter = RemoteArticleAdapter(ArrayList(),this@DashBoardFragment)
         binding.articleRcv.layoutManager = LinearLayoutManager(requireActivity())
         binding.articleRcv.adapter = articleAdapter
 
@@ -70,6 +78,27 @@ class DashBoardFragment : Fragment() , ArticleAdapter.OnItemClickListener{
     private fun bindObserver() {
         binding.progressBar.gone()
         offlineArticleObserver()
+    }
+
+    private fun onlineArticleObserver() {
+        viewModel.articleList.observe(requireActivity(), Observer {
+            when (it) {
+                is Resource.Success -> {
+                    Logger.d(it.data.toString())
+                    it.data?.let {
+                        remoteArticleAdapter.setData(it)
+                        binding.progressBar.gone()
+                    }
+                }
+                is Resource.Error -> {
+                    binding.progressBar.gone()
+                    Logger.d(it.errorMessage.toString() + "Error")
+                }
+                is Resource.Loading -> {
+                    binding.progressBar.visible()
+                }
+            }
+        })
     }
 
     private fun offlineArticleObserver() {
@@ -111,7 +140,6 @@ class DashBoardFragment : Fragment() , ArticleAdapter.OnItemClickListener{
 
     override fun itemClickLong(view: View, position: Int, article: ArticleModel) {
         openDialog(article)
-        findNavController().navigate(R.id.action_dashBaord_to_confirmFragment2)
     }
 
     private fun openDialog(article: ArticleModel) {
@@ -186,6 +214,15 @@ class DashBoardFragment : Fragment() , ArticleAdapter.OnItemClickListener{
         return super.onOptionsItemSelected(item)
     }
 
+    override fun itemClick(view: View, position: Int, article: ArticleX) {
+
+    }
+
+    override fun btnClick(view: View, position: Int, article: ArticleX) {
+    }
+
+    override fun itemClickLong(view: View, position: Int, article: ArticleX) {
+    }
 
 
 }
