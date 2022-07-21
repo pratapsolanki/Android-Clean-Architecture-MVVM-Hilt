@@ -3,9 +3,11 @@ package com.realworld.io.adapter
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.recyclerview.widget.RecyclerView
 import com.realworld.io.databinding.SingleArticleBinding
 import com.realworld.io.model.ArticleModel
+import com.realworld.io.util.Logger
 
 
 class ArticleAdapter(private var articleModel: List<ArticleModel> , private val listener: OnItemClickListener) : RecyclerView.Adapter<MainViewHolder>() {
@@ -17,12 +19,17 @@ class ArticleAdapter(private var articleModel: List<ArticleModel> , private val 
 
     override fun onBindViewHolder(holder: MainViewHolder, position: Int) {
         val article = articleModel[position]
-        holder.binding.titleText.text = article.title
-
+        holder.binding.shortDesc.text = article.body
+        holder.binding.title.text = article.title
         holder.itemView.setOnClickListener {
             listener.itemClick(it,position,article)
         }
 
+        holder.itemView.setOnLongClickListener {
+            Logger.d("Longpressed")
+            listener.itemClickLong(it,position,article)
+            false
+        }
         holder.binding.changeBtn.setOnClickListener {
             listener.btnClick(it,position,article)
         }
@@ -36,6 +43,7 @@ class ArticleAdapter(private var articleModel: List<ArticleModel> , private val 
     interface OnItemClickListener{
         fun itemClick(view: View, position: Int, article: ArticleModel)
         fun btnClick(view: View, position: Int, article: ArticleModel)
+        fun itemClickLong(view: View, position: Int, article: ArticleModel)
     }
 
 
@@ -45,5 +53,6 @@ class ArticleAdapter(private var articleModel: List<ArticleModel> , private val 
     }
 
 }
+
 
 class MainViewHolder(var binding: SingleArticleBinding) : RecyclerView.ViewHolder(binding.root)

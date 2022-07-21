@@ -58,6 +58,32 @@ WebSite [Conduit](https://demo.realworld.io/#/)
 
 API Collection [Conduit](https://github.com/jbsolutions2008/Medium_Clone_Conduit/blob/pratap/results/Conduit.postman_collection.json)
 
+##  💡 Screnshots
+
+<table>
+  <tr>
+    <td>Login Screen</td>
+     <td>Register Screen</td>
+     <td>Articles List Screen</td>
+     <td>Add Article Screen</td>
+  </tr>
+  <tr>
+    <td valign="top"><img src="https://github.com/jbsolutions2008/Medium_Clone_Conduit/blob/pratap/results/1.PNG"></td>
+    <td valign="top"><img src="https://github.com/jbsolutions2008/Medium_Clone_Conduit/blob/pratap/results/2.PNG"></td>
+    <td valign="top"><img src="https://github.com/jbsolutions2008/Medium_Clone_Conduit/blob/pratap/results/3.PNG"></td>
+     <td valign="top"><img src="https://github.com/jbsolutions2008/Medium_Clone_Conduit/blob/pratap/results/4.PNG"></td>
+  </tr>
+    <tr>
+    <td>Article Detail Screen</td>
+     <td>Profile Screen</td>
+     <td>Edit Article Screen</td>
+  </tr>
+   <tr>
+    <td valign="top"><img src="https://github.com/jbsolutions2008/Medium_Clone_Conduit/blob/pratap/results/5.PNG"></td>
+    <td valign="top"><img src="https://github.com/jbsolutions2008/Medium_Clone_Conduit/blob/pratap/results/6.PNG"></td>
+    <td valign="top"><img src="https://github.com/jbsolutions2008/Medium_Clone_Conduit/blob/pratap/results/7.PNG"></td>
+  </tr>
+  </table>
 
 ##  💡 Features
 

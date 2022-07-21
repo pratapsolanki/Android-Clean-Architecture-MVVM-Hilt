@@ -3,21 +3,28 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
-        <entry key="..\:/Priyank/Medium/app/src/main/res/drawable/ic_topwave.xml" value="0.2475" />
-        <entry key="..\:/Priyank/Medium/app/src/main/res/drawable/ic_wave.xml" value="0.2475" />
-        <entry key="..\:/Priyank/Medium/app/src/main/res/layout/activity_main.xml" value="0.22" />
-        <entry key="..\:/Priyank/Medium/app/src/main/res/layout/fragment_add_article.xml" value="0.27291666666666664" />
-        <entry key="..\:/Priyank/Medium/app/src/main/res/layout/fragment_dash_baord.xml" value="0.27291666666666664" />
-        <entry key="..\:/Priyank/Medium/app/src/main/res/layout/fragment_edit.xml" value="0.27291666666666664" />
-        <entry key="..\:/Priyank/Medium/app/src/main/res/layout/fragment_login.xml" value="0.27291666666666664" />
-        <entry key="..\:/Priyank/Medium/app/src/main/res/layout/fragment_signle_article.xml" value="0.27291666666666664" />
-        <entry key="..\:/Priyank/Medium/app/src/main/res/layout/fragment_signup.xml" value="0.27291666666666664" />
-        <entry key="..\:/Priyank/Medium/app/src/main/res/layout/fragment_userprofile.xml" value="0.27291666666666664" />
-        <entry key="..\:/Priyank/Medium/app/src/main/res/layout/single_article.xml" value="0.27291666666666664" />
+        <entry key="..\:/Pratap/JetPack/RealWorld Io/RealWorldIO/RealWorld IO/app/src/main/res/layout/activity_main.xml" value="0.27291666666666664" />
+        <entry key="app/src/main/res/drawable/ic_baseline_add_24.xml" value="0.2555" />
+        <entry key="app/src/main/res/layout/activity_main.xml" value="0.25" />
+        <entry key="app/src/main/res/layout/fragment_add_article.xml" value="0.25" />
+        <entry key="app/src/main/res/layout/fragment_bottomsheet.xml" value="0.33" />
+        <entry key="app/src/main/res/layout/fragment_confirm.xml" value="0.5" />
+        <entry key="app/src/main/res/layout/fragment_dash_baord.xml" value="0.33" />
+        <entry key="app/src/main/res/layout/fragment_edit.xml" value="0.25" />
+        <entry key="app/src/main/res/layout/fragment_login.xml" value="0.25" />
+        <entry key="app/src/main/res/layout/fragment_signle_article.xml" value="0.5" />
+        <entry key="app/src/main/res/layout/fragment_signup.xml" value="0.25" />
+        <entry key="app/src/main/res/layout/fragment_userprofile.xml" value="0.11145833333333334" />
+        <entry key="app/src/main/res/layout/single_article.xml" value="0.33" />
+        <entry key="app/src/main/res/menu/article_option_menu.xml" value="0.25" />
+        <entry key="app/src/main/res/menu/user_info.xml" value="0.25" />
       </map>
     </option>
   </component>
-  <component name="ProjectRootManager" version="2" languageLevel="JDK_11" default="true" project-jdk-name="JDK" project-jdk-type="JavaSDK">
-    <output url="file://$PROJECT_DIR$/out" />
+  <component name="ProjectRootManager" version="2" languageLevel="JDK_11" default="true" project-jdk-name="Android Studio default JDK" project-jdk-type="JavaSDK">
+    <output url="file://$PROJECT_DIR$/build/classes" />
+  </component>
+  <component name="ProjectType">
+    <option name="id" value="Android" />
   </component>
 </project>

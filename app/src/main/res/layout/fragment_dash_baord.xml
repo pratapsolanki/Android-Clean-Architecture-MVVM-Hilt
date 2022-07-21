@@ -5,9 +5,7 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    tools:context=".presentation.dashboard.DashBaord">
-
-
+    tools:context=".presentation.dashboard.DashBoardFragment">
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/articleRcv"
         android:layout_width="match_parent"

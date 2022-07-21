@@ -7,10 +7,7 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
 import androidx.navigation.fragment.findNavController
-import androidx.navigation.fragment.navArgs
-import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
-import androidx.recyclerview.widget.StaggeredGridLayoutManager
 import com.realworld.io.MainActivity
 import com.realworld.io.R
 import com.realworld.io.adapter.ArticleAdapter
@@ -21,7 +18,7 @@ import dagger.hilt.android.AndroidEntryPoint
 import javax.inject.Inject
 
 @AndroidEntryPoint
-class DashBaord : Fragment() , ArticleAdapter.OnItemClickListener{
+class DashBoardFragment : Fragment() , ArticleAdapter.OnItemClickListener{
 
     private val viewModel : ArticleViewModel by viewModels()
     private  var _binding: FragmentDashBaordBinding?= null
@@ -49,60 +46,12 @@ class DashBaord : Fragment() , ArticleAdapter.OnItemClickListener{
         bindObserver()
         iniRecyclerview()
         (activity as MainActivity).supportActionBar?.setDisplayHomeAsUpEnabled(false)
-//        toobarActionHandle()
         binding.progressBar.gone()
     }
 
 
-    override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
-        inflater.inflate(R.menu.user_info,menu)
-        super.onCreateOptionsMenu(menu, inflater)
-    }
-
-    override fun onOptionsItemSelected(item: MenuItem): Boolean {
-        when(item.itemId){
-            R.id.add -> {
-                    findNavController().navigate(R.id.action_dashBaord_to_addArticleFragment)
-                    true
-                }
-                R.id.about ->{
-                    findNavController().navigate(R.id.action_dashBaord_to_userprofile)
-                    true
-                }
-                R.id.logout -> {
-                    logout()
-                    true
-                }
-                else ->{
-                    false
-                }
-        }
-        return super.onOptionsItemSelected(item)
-    }
 
 
-//    private fun toobarActionHandle() {
-//        binding.topAppBar.setOnMenuItemClickListener {
-//            when (it.itemId) {
-//                R.id.add -> {
-//                    findNavController().navigate(R.id.action_dashBaord_to_addArticleFragment)
-//                    true
-//                }
-//                R.id.about ->{
-//                    findNavController().navigate(R.id.action_dashBaord_to_userprofile)
-//                    true
-//                }
-//                R.id.logout -> {
-//                    logout()
-//                    true
-//                }
-//                else ->{
-//                    false
-//                }
-//            }
-//
-//        }
-//    }
 
     private fun logout() {
         tokenManager.logout()
@@ -112,7 +61,7 @@ class DashBaord : Fragment() , ArticleAdapter.OnItemClickListener{
 
 
     private fun iniRecyclerview() {
-        articleAdapter = ArticleAdapter(ArrayList(),this@DashBaord)
+        articleAdapter = ArticleAdapter(ArrayList(),this@DashBoardFragment)
         binding.articleRcv.layoutManager = LinearLayoutManager(requireActivity())
         binding.articleRcv.adapter = articleAdapter
 
@@ -120,6 +69,10 @@ class DashBaord : Fragment() , ArticleAdapter.OnItemClickListener{
 
     private fun bindObserver() {
         binding.progressBar.gone()
+        offlineArticleObserver()
+    }
+
+    private fun offlineArticleObserver() {
         viewModel.offlineArticleList.observe(requireActivity(), Observer {
             when (it) {
                 is Resource.Success -> {
@@ -146,14 +99,19 @@ class DashBaord : Fragment() , ArticleAdapter.OnItemClickListener{
     }
 
     override fun itemClick(view: View, position: Int, article: ArticleModel) {
-        val action = DashBaordDirections.actionDashBaordToSignleArticle(article)
+        val action = DashBoardFragmentDirections.actionDashBaordToSignleArticle(article)
         findNavController().navigate(action)
     }
 
     override fun btnClick(view: View, position: Int, article: ArticleModel) {
-        openDialog(article)
+        findNavController().navigate(R.id.action_dashBaord_to_confirmFragment2)
         Logger.d("$position click")
         articleAdapter.notifyDataSetChanged()
+    }
+
+    override fun itemClickLong(view: View, position: Int, article: ArticleModel) {
+        openDialog(article)
+        findNavController().navigate(R.id.action_dashBaord_to_confirmFragment2)
     }
 
     private fun openDialog(article: ArticleModel) {
@@ -175,7 +133,7 @@ class DashBaord : Fragment() , ArticleAdapter.OnItemClickListener{
     }
 
     private fun navigateToUpdateFragment(article: ArticleModel) {
-        val action =  DashBaordDirections.actionDashBaordToEditFragment(
+        val action =  DashBoardFragmentDirections.actionDashBaordToEditFragment(
             article
         )
         findNavController().navigate(action)
@@ -200,6 +158,35 @@ class DashBaord : Fragment() , ArticleAdapter.OnItemClickListener{
         viewModel.deleteArticle(article)
         articleAdapter.notifyDataSetChanged()
     }
+
+
+    override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
+        inflater.inflate(R.menu.user_info,menu)
+        super.onCreateOptionsMenu(menu, inflater)
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        when(item.itemId){
+            R.id.add -> {
+                findNavController().navigate(R.id.action_dashBaord_to_addArticleFragment)
+                true
+            }
+            R.id.about ->{
+                findNavController().navigate(R.id.action_dashBaord_to_userprofile)
+                true
+            }
+            R.id.logout -> {
+                logout()
+                true
+            }
+            else ->{
+                false
+            }
+        }
+        return super.onOptionsItemSelected(item)
+    }
+
+
 
 }
 

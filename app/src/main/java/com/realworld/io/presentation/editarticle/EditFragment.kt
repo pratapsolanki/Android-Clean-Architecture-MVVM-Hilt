@@ -37,21 +37,27 @@ class EditFragment : Fragment() {
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        binding.edtBody.setText(args.sampleData?.body.toString())
-        binding.edtTitle.setText(args.sampleData?.title.toString())
+        binding.apply {
+            args.sampleData?.let {
+                edtBody.setText(it.body)
+                edtTitle.setText(it.title)
+                edtDesc.setText(it.description)
+            }
 
+           updateArticleBtn.setOnClickListener {
 
-        binding.updateArticleBtn.setOnClickListener {
-            val body = binding.edtBody.text.toString().trim()
-            val title = binding.edtTitle.text.toString().trim()
-            val id = args.sampleData?.id!!.toInt()
+                val body = edtBody.text.toString().trim()
+                val title = edtTitle.text.toString().trim()
+                val id = args.sampleData?.id!!.toInt()
+                val desc = edtDesc.text.toString().trim()
 
-            Logger.d("$body $title title")
-            val articleModel = ArticleModel(id, body = body, title =  title)
+                Logger.d("$body $title title")
+                val articleModel = ArticleModel(id, body = body, title = title, description = desc)
 
-            viewModel.updateArticle(articleModel)
-            findNavController().popBackStack()
+                viewModel.updateArticle(articleModel)
+                findNavController().popBackStack()
 
+            }
         }
         super.onViewCreated(view, savedInstanceState)
     }
