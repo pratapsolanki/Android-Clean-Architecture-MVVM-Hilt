@@ -13,8 +13,8 @@ import com.realworld.io.R
 import com.realworld.io.util.Resource
 import com.realworld.io.util.TokenManager
 import com.realworld.io.databinding.FragmentSignupBinding
-import com.realworld.io.model.SignUpInput
-import com.realworld.io.model.UserCommon
+import com.realworld.io.domain.model.SignUpInput
+import com.realworld.io.domain.model.UserCommon
 import com.realworld.io.util.gone
 import com.realworld.io.util.visible
 import dagger.hilt.android.AndroidEntryPoint

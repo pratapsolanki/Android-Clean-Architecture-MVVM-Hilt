@@ -1,7 +1,7 @@
 package com.realworld.io.data.repo
 
 import com.example.dagger_hilt.dao.AppDao
-import com.realworld.io.model.ArticleModel
+import com.realworld.io.domain.model.ArticleModel
 import javax.inject.Inject
 
 class RoomRepository @Inject constructor(private val appDao: AppDao) {

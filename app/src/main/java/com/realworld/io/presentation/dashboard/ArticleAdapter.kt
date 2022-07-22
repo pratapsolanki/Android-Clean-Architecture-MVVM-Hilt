@@ -3,14 +3,13 @@ package com.realworld.io.adapter
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
 import androidx.recyclerview.widget.RecyclerView
 import com.realworld.io.databinding.SingleArticleBinding
-import com.realworld.io.model.ArticleModel
+import com.realworld.io.domain.model.ArticleModel
 import com.realworld.io.util.Logger
 
 
-class ArticleAdapter(private var articleModel: List<ArticleModel> , private val listener: OnItemClickListener) : RecyclerView.Adapter<MainViewHolder>() {
+class ArticleAdapter(private var articleModel: List<ArticleModel>, private val listener: OnItemClickListener) : RecyclerView.Adapter<MainViewHolder>() {
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MainViewHolder {
         val inflater = LayoutInflater.from(parent.context)
         val binding = SingleArticleBinding.inflate(inflater, parent, false)

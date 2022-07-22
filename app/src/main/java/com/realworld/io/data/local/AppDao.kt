@@ -4,7 +4,7 @@ import androidx.room.Dao
 import androidx.room.Insert
 import androidx.room.Query
 import androidx.room.*
-import com.realworld.io.model.ArticleModel
+import com.realworld.io.domain.model.ArticleModel
 
 @Dao
 interface AppDao {

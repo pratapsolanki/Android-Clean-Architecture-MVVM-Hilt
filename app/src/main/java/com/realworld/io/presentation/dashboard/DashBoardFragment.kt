@@ -12,8 +12,8 @@ import com.realworld.io.MainActivity
 import com.realworld.io.R
 import com.realworld.io.adapter.ArticleAdapter
 import com.realworld.io.databinding.FragmentDashBaordBinding
-import com.realworld.io.model.ArticleModel
-import com.realworld.io.model.ArticleX
+import com.realworld.io.domain.model.ArticleModel
+import com.realworld.io.domain.model.ArticleX
 import com.realworld.io.util.*
 import dagger.hilt.android.AndroidEntryPoint
 import javax.inject.Inject

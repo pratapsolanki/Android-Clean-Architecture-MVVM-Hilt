@@ -1,4 +1,4 @@
-package com.realworld.io.model
+package com.realworld.io.domain.model
 
 data class User(
     val email: String,

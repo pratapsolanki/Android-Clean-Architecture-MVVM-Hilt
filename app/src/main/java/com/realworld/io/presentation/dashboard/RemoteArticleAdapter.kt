@@ -5,9 +5,8 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.realworld.io.databinding.SingleArticleBinding
-import com.realworld.io.model.Article
-import com.realworld.io.model.ArticleModel
-import com.realworld.io.model.ArticleX
+import com.realworld.io.domain.model.Article
+import com.realworld.io.domain.model.ArticleX
 import com.realworld.io.util.Logger
 
 class RemoteArticleAdapter(private var articleModel: List<ArticleX>, private val listener: OnItemClickListener) : RecyclerView.Adapter<MainViewHolder>() {
