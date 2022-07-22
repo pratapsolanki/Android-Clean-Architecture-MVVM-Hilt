@@ -18,6 +18,7 @@
         <entry key="app/src/main/res/layout/fragment_signup.xml" value="0.25" />
         <entry key="app/src/main/res/layout/fragment_userprofile.xml" value="0.11145833333333334" />
         <entry key="app/src/main/res/layout/single_article.xml" value="0.33" />
+        <entry key="app/src/main/res/layout/single_article_online.xml" value="0.25" />
         <entry key="app/src/main/res/menu/article_option_menu.xml" value="0.25" />
         <entry key="app/src/main/res/menu/user_info.xml" value="0.25" />
       </map>

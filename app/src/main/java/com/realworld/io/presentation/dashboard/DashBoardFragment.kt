@@ -43,10 +43,20 @@ class DashBoardFragment : Fragment() , ArticleAdapter.OnItemClickListener , Remo
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        viewModel.fetchAllArticle()
-        viewModel.fetchOfflineArticle()
+
+        if (requireContext().isNetworkAvailable()){
+            viewModel.fetchAllArticle()
+        }else {
+            viewModel.fetchOfflineArticle()
+        }
+
         bindObserver()
         iniRecyclerview()
+        if (requireContext().isNetworkAvailable()){
+            onlineArticleObserver()
+        }else {
+            offlineArticleObserver()
+        }
         (activity as MainActivity).supportActionBar?.setDisplayHomeAsUpEnabled(false)
         binding.progressBar.gone()
     }
@@ -63,16 +73,23 @@ class DashBoardFragment : Fragment() , ArticleAdapter.OnItemClickListener , Remo
 
 
     private fun iniRecyclerview() {
+        if (requireContext().isNetworkAvailable()){
+            iniOnlineRcv()
+        }else {
+            iniOfflineRcv()
+        }
+    }
 
-        articleAdapter = ArticleAdapter(ArrayList(),this@DashBoardFragment)
-        binding.articleRcv.layoutManager = LinearLayoutManager(requireActivity())
-        binding.articleRcv.adapter = articleAdapter
-
-
+    private fun iniOnlineRcv() {
         remoteArticleAdapter = RemoteArticleAdapter(ArrayList(),this@DashBoardFragment)
         binding.articleRcv.layoutManager = LinearLayoutManager(requireActivity())
-        binding.articleRcv.adapter = articleAdapter
+        binding.articleRcv.adapter = remoteArticleAdapter
+    }
 
+    private fun iniOfflineRcv() {
+        articleAdapter = ArticleAdapter(ArrayList(), this@DashBoardFragment)
+        binding.articleRcv.layoutManager = LinearLayoutManager(requireActivity())
+        binding.articleRcv.adapter = articleAdapter
     }
 
     private fun bindObserver() {
@@ -86,7 +103,7 @@ class DashBoardFragment : Fragment() , ArticleAdapter.OnItemClickListener , Remo
                 is Resource.Success -> {
                     Logger.d(it.data.toString())
                     it.data?.let {
-                        remoteArticleAdapter.setData(it)
+                        remoteArticleAdapter.setData(it.articles)
                         binding.progressBar.gone()
                     }
                 }
@@ -161,9 +178,7 @@ class DashBoardFragment : Fragment() , ArticleAdapter.OnItemClickListener , Remo
     }
 
     private fun navigateToUpdateFragment(article: ArticleModel) {
-        val action =  DashBoardFragmentDirections.actionDashBaordToEditFragment(
-            article
-        )
+        val action =  DashBoardFragmentDirections.actionDashBaordToEditFragment(article)
         findNavController().navigate(action)
     }
 
@@ -214,7 +229,11 @@ class DashBoardFragment : Fragment() , ArticleAdapter.OnItemClickListener , Remo
         return super.onOptionsItemSelected(item)
     }
 
-    override fun itemClick(view: View, position: Int, article: ArticleX) {
+    override fun itemClick(
+        view: View,
+        position: Int,
+        article: ArticleX
+    ) {
 
     }
 

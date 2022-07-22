@@ -4,8 +4,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
-import com.realworld.io.databinding.SingleArticleBinding
-import com.realworld.io.model.Article
+import com.realworld.io.databinding.SingleArticleOnlineBinding
 import com.realworld.io.model.ArticleModel
 import com.realworld.io.model.ArticleX
 import com.realworld.io.util.Logger
@@ -13,7 +12,7 @@ import com.realworld.io.util.Logger
 class RemoteArticleAdapter(private var articleModel: List<ArticleX>, private val listener: OnItemClickListener) : RecyclerView.Adapter<MainViewHolder>() {
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MainViewHolder {
         val inflater = LayoutInflater.from(parent.context)
-        val binding = SingleArticleBinding.inflate(inflater, parent, false)
+        val binding = SingleArticleOnlineBinding.inflate(inflater, parent, false)
         return MainViewHolder(binding)
     }
 
@@ -48,7 +47,7 @@ class RemoteArticleAdapter(private var articleModel: List<ArticleX>, private val
     }
 
 
-    fun setData(articleModel: Article){
+    fun setData(articleModel: List<ArticleX>){
         this.articleModel = articleModel
         notifyDataSetChanged()
     }
@@ -56,4 +55,4 @@ class RemoteArticleAdapter(private var articleModel: List<ArticleX>, private val
 }
 
 
-class MainViewHolder(var binding: SingleArticleBinding) : RecyclerView.ViewHolder(binding.root)
+class MainViewHolder(var binding: SingleArticleOnlineBinding) : RecyclerView.ViewHolder(binding.root)
