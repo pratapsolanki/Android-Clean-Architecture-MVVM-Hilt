@@ -1,3 +1,3 @@
-package com.realworld.io.model
+package com.realworld.io.domain.model
 
 data class SignUpInput(var user: UserCommon)

@@ -3,8 +3,8 @@ package com.realworld.io.presentation.login
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.realworld.io.data.repo.Repositoryimpl
-import com.realworld.io.model.LoginInput
-import com.realworld.io.model.UserLoginResponse
+import com.realworld.io.domain.model.LoginInput
+import com.realworld.io.domain.model.UserLoginResponse
 import com.realworld.io.util.Resource
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.CoroutineScope

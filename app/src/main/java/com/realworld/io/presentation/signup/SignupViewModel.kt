@@ -3,8 +3,8 @@ package com.realworld.io.presentation.signup
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.realworld.io.data.repo.Repositoryimpl
-import com.realworld.io.model.SignUpInput
-import com.realworld.io.model.UserLoginResponse
+import com.realworld.io.domain.model.SignUpInput
+import com.realworld.io.domain.model.UserLoginResponse
 import com.realworld.io.util.Resource
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.CoroutineScope

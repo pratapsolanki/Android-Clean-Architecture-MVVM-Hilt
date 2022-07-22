@@ -1,4 +1,4 @@
-package com.realworld.io.model
+package com.realworld.io.domain.model
 
 import android.os.Parcelable
 import androidx.room.Entity

@@ -12,7 +12,7 @@ import com.google.android.material.chip.Chip
 import com.google.android.material.chip.ChipGroup
 import com.realworld.io.R
 import com.realworld.io.databinding.FragmentAddArticleBinding
-import com.realworld.io.model.ArticleModel
+import com.realworld.io.domain.model.ArticleModel
 import com.realworld.io.util.TokenManager
 import dagger.hilt.android.AndroidEntryPoint
 import java.util.*

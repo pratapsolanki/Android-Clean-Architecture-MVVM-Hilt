@@ -3,7 +3,7 @@ package com.example.dagger_hilt.db
 import android.content.Context
 import androidx.room.*
 import com.example.dagger_hilt.dao.AppDao
-import com.realworld.io.model.ArticleModel
+import com.realworld.io.domain.model.ArticleModel
 import com.realworld.io.util.Converter
 
 

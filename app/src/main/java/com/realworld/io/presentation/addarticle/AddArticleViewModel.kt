@@ -2,7 +2,7 @@ package com.realworld.io.presentation.addarticle
 
 import androidx.lifecycle.ViewModel
 import com.realworld.io.data.repo.RoomRepository
-import com.realworld.io.model.*
+import com.realworld.io.domain.model.ArticleModel
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers

@@ -11,7 +11,7 @@ import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import com.realworld.io.R
 import com.realworld.io.databinding.FragmentEditBinding
-import com.realworld.io.model.ArticleModel
+import com.realworld.io.domain.model.ArticleModel
 import com.realworld.io.util.Logger
 import dagger.hilt.android.AndroidEntryPoint
 import java.util.*

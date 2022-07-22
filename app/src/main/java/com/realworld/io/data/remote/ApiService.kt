@@ -1,7 +1,10 @@
 package com.realworld.io.data.remote
 
 
-import com.realworld.io.model.*
+import com.realworld.io.domain.model.Article
+import com.realworld.io.domain.model.LoginInput
+import com.realworld.io.domain.model.SignUpInput
+import com.realworld.io.domain.model.UserLoginResponse
 import com.realworld.io.util.ApiConstants
 import retrofit2.Response
 import retrofit2.http.Body
