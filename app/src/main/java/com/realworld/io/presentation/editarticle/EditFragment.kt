@@ -11,7 +11,6 @@ import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import com.realworld.io.R
 import com.realworld.io.databinding.FragmentEditBinding
-import com.realworld.io.domain.model.ArticleModel
 import com.realworld.io.util.Logger
 import dagger.hilt.android.AndroidEntryPoint
 import java.util.*
@@ -47,21 +46,19 @@ class EditFragment : Fragment() {
                 edtBody.setText(it.body)
                 edtTitle.setText(it.title)
                 edtDesc.setText(it.description)
-                autocompleteTV.setText(it.category, false)
+                autocompleteTV.setText(it.tagList.get(0),false)
             }
 
            updateArticleBtn.setOnClickListener {
                 val body = edtBody.text.toString().trim()
                 val title = edtTitle.text.toString().trim()
-                val id = args.sampleData?.id!!.toInt()
-                val username = args.sampleData?.username
                 val desc = edtDesc.text.toString().trim()
                 val category = autocompleteTV.text.toString().trim()
 
                 Logger.d("$body $title title")
-                val articleModel = ArticleModel(id, body = body, title = title, description = desc, username = username, createdAt = Date() , updatedAt = Date(), category = category)
-
-                viewModel.updateArticle(articleModel)
+//                val articleModel = ArticleModel(id, body = body, title = title, description = desc, username = username, createdAt = Date() , updatedAt = Date(), category = category)
+//
+//                viewModel.updateArticle(articleModel)
                 findNavController().popBackStack()
 
             }

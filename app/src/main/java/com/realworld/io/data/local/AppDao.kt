@@ -1,22 +1,22 @@
-package com.example.dagger_hilt.dao
+package com.realworld.io.data.local
 
 import androidx.room.Dao
 import androidx.room.Insert
 import androidx.room.Query
 import androidx.room.*
-import com.realworld.io.domain.model.ArticleModel
+import com.realworld.io.domain.model.Article
+import com.realworld.io.domain.model.ArticleX
 
 @Dao
 interface AppDao {
+
     @Query("SELECT * FROM article_table")
-    fun getArticle(): List<ArticleModel>
+    fun getArticle(): List<ArticleX>
+
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
+    fun insertListArticle(article: List<ArticleX>)
 
     @Insert
-    fun insertArticle(articleModel: ArticleModel)
+    fun insertSingleArticle(article: ArticleX)
 
-    @Delete
-    fun delete(articleModel: ArticleModel) : Int
-
-    @Update
-    fun update(articleModel: ArticleModel): Int
 }

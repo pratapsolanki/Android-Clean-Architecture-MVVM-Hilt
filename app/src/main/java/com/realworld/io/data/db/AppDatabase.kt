@@ -2,13 +2,16 @@ package com.example.dagger_hilt.db
 
 import android.content.Context
 import androidx.room.*
-import com.example.dagger_hilt.dao.AppDao
-import com.realworld.io.domain.model.ArticleModel
+import com.realworld.io.data.local.AppDao
+import com.realworld.io.domain.model.ArticleX
+import com.realworld.io.domain.model.Author
 import com.realworld.io.util.Converter
+import com.realworld.io.util.ListConverter
+import com.realworld.io.util.ObjectConverter
 
 
-@Database(entities = [ArticleModel::class],version = 1 , exportSchema = false)
-@TypeConverters(Converter::class)
+@Database(entities = [ArticleX::class],version = 1 , exportSchema = false)
+@TypeConverters(Converter::class, ObjectConverter::class,ListConverter::class)
 abstract class AppDatabase :RoomDatabase() {
 
     abstract fun getDAO(): AppDao

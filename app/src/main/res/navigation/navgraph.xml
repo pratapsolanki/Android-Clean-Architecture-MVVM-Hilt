@@ -73,7 +73,7 @@
             app:destination="@id/addArticleFragment" />
         <argument
             android:name="SingleArticle"
-            app:argType="com.realworld.io.model.ArticleModel" />
+            app:argType="com.realworld.io.domain.model.ArticleX" />
     </fragment>
     <fragment
         android:id="@+id/userprofile"
@@ -96,7 +96,7 @@
         tools:layout="@layout/fragment_edit" >
         <argument
             android:name="sampleData"
-            app:argType="com.realworld.io.model.ArticleModel"
+            app:argType="com.realworld.io.domain.model.ArticleX"
             app:nullable="true"/>
     </fragment>
     <dialog

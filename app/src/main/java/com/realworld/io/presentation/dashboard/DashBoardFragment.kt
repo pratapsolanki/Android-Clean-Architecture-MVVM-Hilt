@@ -10,22 +10,19 @@ import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.realworld.io.MainActivity
 import com.realworld.io.R
-import com.realworld.io.adapter.ArticleAdapter
 import com.realworld.io.databinding.FragmentDashBaordBinding
-import com.realworld.io.domain.model.ArticleModel
 import com.realworld.io.domain.model.ArticleX
 import com.realworld.io.util.*
 import dagger.hilt.android.AndroidEntryPoint
 import javax.inject.Inject
 
 @AndroidEntryPoint
-class DashBoardFragment : Fragment() , ArticleAdapter.OnItemClickListener , RemoteArticleAdapter.OnItemClickListener{
+class DashBoardFragment : Fragment() , ArticleAdapter.OnItemClickListener{
 
     private val viewModel : ArticleViewModel by viewModels()
     private  var _binding: FragmentDashBaordBinding?= null
     private val binding get() = _binding!!
     lateinit var articleAdapter: ArticleAdapter
-    lateinit var remoteArticleAdapter: RemoteArticleAdapter
     @Inject lateinit var tokenManager: TokenManager
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -43,7 +40,6 @@ class DashBoardFragment : Fragment() , ArticleAdapter.OnItemClickListener , Remo
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
         if (requireContext().isNetworkAvailable()){
             viewModel.fetchAllArticle()
         }else {
@@ -73,46 +69,39 @@ class DashBoardFragment : Fragment() , ArticleAdapter.OnItemClickListener , Remo
 
 
     private fun iniRecyclerview() {
-        if (requireContext().isNetworkAvailable()){
-            iniOnlineRcv()
-        }else {
-            iniOfflineRcv()
-        }
-    }
-
-    private fun iniOnlineRcv() {
-        remoteArticleAdapter = RemoteArticleAdapter(ArrayList(),this@DashBoardFragment)
-        binding.articleRcv.layoutManager = LinearLayoutManager(requireActivity())
-        binding.articleRcv.adapter = remoteArticleAdapter
-    }
-
-    private fun iniOfflineRcv() {
         articleAdapter = ArticleAdapter(ArrayList(), this@DashBoardFragment)
         binding.articleRcv.layoutManager = LinearLayoutManager(requireActivity())
         binding.articleRcv.adapter = articleAdapter
     }
 
+
     private fun bindObserver() {
         binding.progressBar.gone()
-        offlineArticleObserver()
     }
 
     private fun onlineArticleObserver() {
+        binding.shimmerLayout.stopShimmer();
+
         viewModel.articleList.observe(requireActivity(), Observer {
+
             when (it) {
                 is Resource.Success -> {
                     Logger.d(it.data.toString())
                     it.data?.let {
-                        remoteArticleAdapter.setData(it.articles)
-                        binding.progressBar.gone()
+                        articleAdapter.setData(it.articles)
+                        binding.shimmerLayout.stopShimmer()
+                        binding.shimmerLayout.gone()
+                        binding.articleRcv.visible()
                     }
                 }
                 is Resource.Error -> {
-                    binding.progressBar.gone()
+                    binding.shimmerLayout.stopShimmer();
+                    binding.shimmerLayout.gone()
+                    binding.articleRcv.visible()
                     Logger.d(it.errorMessage.toString() + "Error")
                 }
                 is Resource.Loading -> {
-                    binding.progressBar.visible()
+                    binding.shimmerLayout.startShimmer();
                 }
             }
         })
@@ -120,22 +109,10 @@ class DashBoardFragment : Fragment() , ArticleAdapter.OnItemClickListener , Remo
 
     private fun offlineArticleObserver() {
         viewModel.offlineArticleList.observe(requireActivity(), Observer {
-            when (it) {
-                is Resource.Success -> {
-                    Logger.d(it.data.toString())
-                    it.data?.let {
-                        articleAdapter.setData(it)
-                        binding.progressBar.gone()
-                    }
-                }
-                is Resource.Error -> {
-                    binding.progressBar.gone()
-                    Logger.d(it.errorMessage.toString() + "Error")
-                }
-                is Resource.Loading -> {
-                    binding.progressBar.visible()
-                }
-            }
+            binding.shimmerLayout.stopShimmer();
+            binding.shimmerLayout.gone()
+            binding.articleRcv.visible()
+            articleAdapter.setData(it)
         })
     }
 
@@ -144,22 +121,21 @@ class DashBoardFragment : Fragment() , ArticleAdapter.OnItemClickListener , Remo
         _binding = null
     }
 
-    override fun itemClick(view: View, position: Int, article: ArticleModel) {
+    override fun itemClick(view: View, position: Int, article: ArticleX) {
         val action = DashBoardFragmentDirections.actionDashBaordToSignleArticle(article)
         findNavController().navigate(action)
     }
 
-    override fun btnClick(view: View, position: Int, article: ArticleModel) {
+    override fun btnClick(view: View, position: Int, article: ArticleX) {
         findNavController().navigate(R.id.action_dashBaord_to_confirmFragment2)
-        Logger.d("$position click")
         articleAdapter.notifyDataSetChanged()
     }
 
-    override fun itemClickLong(view: View, position: Int, article: ArticleModel) {
+    override fun itemClickLong(view: View, position: Int, article: ArticleX) {
         openDialog(article)
     }
 
-    private fun openDialog(article: ArticleModel) {
+    private fun openDialog(article: ArticleX) {
         val alertDialog = AlertDialog.Builder(requireContext())
         alertDialog.apply {
             setIcon(R.drawable.demo_avatar)
@@ -172,34 +148,27 @@ class DashBoardFragment : Fragment() , ArticleAdapter.OnItemClickListener , Remo
                 navigateToUpdateFragment(article)
             }
             setNeutralButton("Cancel") { _, _ ->
-                requireContext().toast("clicked neutral button")
             }
         }.create().show()
     }
 
-    private fun navigateToUpdateFragment(article: ArticleModel) {
-        val action =  DashBoardFragmentDirections.actionDashBaordToEditFragment(article)
+    private fun navigateToUpdateFragment(article: ArticleX) {
+        val action = DashBoardFragmentDirections.actionDashBaordToEditFragment(article)
         findNavController().navigate(action)
     }
 
-    private fun openConfirmDialogBox(article: ArticleModel) {
+    private fun openConfirmDialogBox(article: ArticleX) {
         val alertDialog = AlertDialog.Builder(requireContext())
         alertDialog.apply {
             setIcon(R.drawable.demo_avatar)
             setTitle("Are You Really want to Delete it?")
             setMessage("This change cant be Revert....")
             setPositiveButton("Yes") { _, _ ->
-                deleteArticleAction(article)
             }
             setNegativeButton("No") { _, _ ->
 
             }
         }.create().show()
-    }
-
-    private fun deleteArticleAction(article: ArticleModel) {
-        viewModel.deleteArticle(article)
-        articleAdapter.notifyDataSetChanged()
     }
 
 
@@ -227,20 +196,6 @@ class DashBoardFragment : Fragment() , ArticleAdapter.OnItemClickListener , Remo
             }
         }
         return super.onOptionsItemSelected(item)
-    }
-
-    override fun itemClick(
-        view: View,
-        position: Int,
-        article: ArticleX
-    ) {
-
-    }
-
-    override fun btnClick(view: View, position: Int, article: ArticleX) {
-    }
-
-    override fun itemClickLong(view: View, position: Int, article: ArticleX) {
     }
 
 

@@ -1,24 +1,21 @@
 package com.realworld.io.data.repo
 
-import com.example.dagger_hilt.dao.AppDao
-import com.realworld.io.domain.model.ArticleModel
+import com.realworld.io.data.local.AppDao
+import com.realworld.io.domain.model.Article
+import com.realworld.io.domain.model.ArticleX
 import javax.inject.Inject
 
 class RoomRepository @Inject constructor(private val appDao: AppDao) {
 
-    fun getRecords():List<ArticleModel>{
+    fun getRecords(): List<ArticleX>{
         return appDao.getArticle()
     }
 
-    fun insertRecords(article: ArticleModel) {
-        appDao.insertArticle(article)
+    fun insertSingleArticle(article: ArticleX){
+        appDao.insertSingleArticle(article)
     }
 
-    fun deleteArticle(article: ArticleModel) : Int{
-        return appDao.delete(article)
-    }
-
-    fun updateArticle(article: ArticleModel) {
-        appDao.update(article)
+    fun insertRecords(article: List<ArticleX>) {
+        appDao.insertListArticle(article)
     }
 }

@@ -8,14 +8,14 @@ import android.widget.ArrayAdapter
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
-import com.google.android.material.chip.Chip
-import com.google.android.material.chip.ChipGroup
 import com.realworld.io.R
 import com.realworld.io.databinding.FragmentAddArticleBinding
-import com.realworld.io.domain.model.ArticleModel
+import com.realworld.io.domain.model.Article
+import com.realworld.io.domain.model.ArticleX
+import com.realworld.io.domain.model.Author
 import com.realworld.io.util.TokenManager
+import com.realworld.io.util.toast
 import dagger.hilt.android.AndroidEntryPoint
-import java.util.*
 import javax.inject.Inject
 
 
@@ -27,6 +27,7 @@ class AddArticleFragment : Fragment() {
     private val binding get() = _binding!!
     @Inject
     lateinit var  tokenManager: TokenManager
+    var selectedText = ""
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -42,19 +43,13 @@ class AddArticleFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
 
-        val chipGroup = ChipGroup(requireActivity())
-
-        val genres = arrayOf("Thriller", "Comedy", "Adventure")
-        for (genre in genres) {
-            val chip = Chip(requireActivity())
-            chip.text = genre
-            chipGroup.addView(chip)
-        }
-
         val languages = resources.getStringArray(R.array.programming_languages)
         val arrayAdapter = ArrayAdapter(requireContext(), R.layout.dropdown_item, languages)
         binding.autocompleteTV.setAdapter(arrayAdapter)
 
+        binding.autocompleteTV.setOnItemClickListener { adapterView, view, position, l ->
+            selectedText = languages.get(position)
+        }
 
         binding.addArticleBtn.setOnClickListener {
             val validationResult = checkValidation()
@@ -62,9 +57,9 @@ class AddArticleFragment : Fragment() {
                 val body = binding.edtBody.text.toString().trim()
                 val title = binding.edtTitle.text.toString().trim()
                 val desc = binding.edtDesc.text.toString().trim()
-                val username = tokenManager.getName()
-                val category = binding.autocompleteTV.text.toString()
-                val articleModel = ArticleModel(body = body, title = title , description = desc, username = username, createdAt = Date(), updatedAt = Date(), category = category)
+                val array = mutableListOf<String>()
+                array.add(selectedText)
+                val articleModel = ArticleX(body = body, title = title , description = desc, tagList = array, author = Author("",false,"","amarjeet"))
                 viewModel.addArticle(articleModel)
                 findNavController().popBackStack()
             }
@@ -90,6 +85,10 @@ class AddArticleFragment : Fragment() {
             returnValue = false
         } else binding.inputDesc.error = null
 
+        if(selectedText.isBlank()){
+            requireContext().toast("Please Select Tag")
+            returnValue = false
+        }
         return returnValue
     }
 }

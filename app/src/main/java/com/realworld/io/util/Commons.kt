@@ -5,6 +5,7 @@ import android.app.Activity
 import android.content.Context
 import android.content.Intent
 import android.graphics.Color
+import android.graphics.drawable.ColorDrawable
 import android.location.Geocoder
 import android.net.ConnectivityManager
 import android.net.NetworkCapabilities
@@ -18,11 +19,13 @@ import android.util.DisplayMetrics
 import android.util.Patterns
 import android.view.View
 import android.view.WindowManager
+import android.widget.ImageView
 import android.widget.Toast
 import androidx.annotation.ColorInt
 import androidx.core.graphics.ColorUtils
 import androidx.recyclerview.widget.LinearSmoothScroller
 import androidx.recyclerview.widget.RecyclerView
+import com.bumptech.glide.Glide
 import com.google.android.material.snackbar.Snackbar
 import com.google.gson.Gson
 import okhttp3.MediaType.Companion.toMediaTypeOrNull
@@ -390,5 +393,12 @@ fun capitalizeString(str: String): String {
     } catch (e: Exception) {
     }
     return retStr
+}
+
+fun Context.loadImage(imageView: ImageView , stringPath : String?){
+    Glide.with(this)
+        .load(stringPath)
+        .placeholder(ColorDrawable(Color.GRAY))
+        .into(imageView)
 }
 

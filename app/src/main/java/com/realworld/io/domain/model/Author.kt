@@ -6,8 +6,8 @@ import kotlinx.parcelize.Parcelize
 
 @Parcelize
 data class Author(
-    val bio: String =" ",
-    val following: Boolean,
-    val image: String ="",
+    val bio: String ?=" ",
+    val following: Boolean = false,
+    val image: String ?="",
     val username: String =""
 ) : Parcelable

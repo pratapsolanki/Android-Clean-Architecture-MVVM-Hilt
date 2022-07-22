@@ -102,4 +102,6 @@ dependencies {
     implementation "androidx.room:room-runtime:$room_version"
     kapt "androidx.room:room-compiler:$room_version"
 
+    //Shimmer effect
+    implementation 'com.facebook.shimmer:shimmer:0.5.0'
 }

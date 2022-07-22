@@ -1,15 +1,18 @@
-package com.realworld.io.adapter
+package com.realworld.io.presentation.dashboard
 
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
+import com.bumptech.glide.Glide
 import com.realworld.io.databinding.SingleArticleBinding
-import com.realworld.io.domain.model.ArticleModel
+import com.realworld.io.domain.model.ArticleX
 import com.realworld.io.util.Logger
+import com.realworld.io.util.loadImage
 
 
-class ArticleAdapter(private var articleModel: List<ArticleModel>, private val listener: OnItemClickListener) : RecyclerView.Adapter<MainViewHolder>() {
+class ArticleAdapter(private var articleModel: List<ArticleX>, private val listener: OnItemClickListener) : RecyclerView.Adapter<MainViewHolder>() {
+
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MainViewHolder {
         val inflater = LayoutInflater.from(parent.context)
         val binding = SingleArticleBinding.inflate(inflater, parent, false)
@@ -20,7 +23,8 @@ class ArticleAdapter(private var articleModel: List<ArticleModel>, private val l
         val article = articleModel[position]
         holder.binding.shortDesc.text = article.body
         holder.binding.title.text = article.title
-        holder.binding.userName.text = article.username
+        holder.binding.userName.text = article.author.username
+        holder.itemView.context.loadImage(holder.binding.userIcon , article.author.image)
         holder.itemView.setOnClickListener {
             listener.itemClick(it,position,article)
         }
@@ -41,18 +45,16 @@ class ArticleAdapter(private var articleModel: List<ArticleModel>, private val l
     }
 
     interface OnItemClickListener{
-        fun itemClick(view: View, position: Int, article: ArticleModel)
-        fun btnClick(view: View, position: Int, article: ArticleModel)
-        fun itemClickLong(view: View, position: Int, article: ArticleModel)
+        fun itemClick(view: View, position: Int, article: ArticleX)
+        fun btnClick(view: View, position: Int, article: ArticleX)
+        fun itemClickLong(view: View, position: Int, article: ArticleX)
     }
 
 
-    fun setData(articleModel : List<ArticleModel>){
+    fun setData(articleModel : List<ArticleX>){
         this.articleModel = articleModel
         notifyDataSetChanged()
     }
 
 }
-
-
 class MainViewHolder(var binding: SingleArticleBinding) : RecyclerView.ViewHolder(binding.root)

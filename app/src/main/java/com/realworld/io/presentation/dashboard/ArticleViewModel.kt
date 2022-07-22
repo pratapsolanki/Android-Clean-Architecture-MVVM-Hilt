@@ -2,41 +2,26 @@ package com.realworld.io.presentation.dashboard
 
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import com.realworld.io.util.Resource
-import com.realworld.io.domain.model.Article
 import com.realworld.io.data.repo.Repositoryimpl
 import com.realworld.io.data.repo.RoomRepository
-import com.realworld.io.domain.model.ArticleModel
-import com.realworld.io.util.Logger
+import com.realworld.io.domain.model.Article
+import com.realworld.io.domain.model.ArticleX
+import com.realworld.io.util.Resource
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import javax.inject.Inject
-import java.lang.Exception
 
 @HiltViewModel
-class ArticleViewModel @Inject constructor(val articalRepository: Repositoryimpl , val roomRepository: RoomRepository) : ViewModel() {
+class ArticleViewModel @Inject constructor(private val articalRepository: Repositoryimpl, private val roomRepository: RoomRepository) : ViewModel() {
     val articleList = MutableLiveData<Resource<Article>>()
-    val offlineArticleList = MutableLiveData<Resource<List<ArticleModel>>>()
-
+    val offlineArticleList = MutableLiveData<List<ArticleX>>()
     fun fetchOfflineArticle(){
-        try {
-            CoroutineScope(Dispatchers.IO).launch {
-                offlineArticleList.postValue(Resource.Loading())
-                val response = roomRepository.getRecords()
-                if (!response.isNullOrEmpty()) {
-                    offlineArticleList.postValue(Resource.Success(response))
-                    Logger.d("$offlineArticleList")
-                }else{
-                    offlineArticleList.postValue(Resource.Error("Empty List"))
-                    Logger.d("$offlineArticleList")
-
-                }
+            CoroutineScope(Dispatchers.IO).launch{
+                    val data = roomRepository.getRecords()
+                    offlineArticleList.postValue(data)
             }
-        }catch (e: Exception){
-            offlineArticleList.postValue(Resource.Error(e.message.toString()))
-        }
     }
 
     fun fetchAllArticle() {
@@ -46,19 +31,13 @@ class ArticleViewModel @Inject constructor(val articalRepository: Repositoryimpl
                 val response = articalRepository.getArticle()
                 if (response.isSuccessful) {
                     articleList.postValue(Resource.Success(response.body()!!))
+                    roomRepository.insertRecords(response.body()!!.articles!!)
                 }else{
                     articleList.postValue(Resource.Error("API ERROR or SERVER IS DOWN"))
                 }
             }
         }catch (e: Exception){
             articleList.postValue(Resource.Error(e.message.toString()))
-        }
-    }
-
-    fun deleteArticle(articleModel: ArticleModel){
-        CoroutineScope(Dispatchers.IO).launch {
-            roomRepository.deleteArticle(articleModel)
-            fetchOfflineArticle()
         }
     }
 

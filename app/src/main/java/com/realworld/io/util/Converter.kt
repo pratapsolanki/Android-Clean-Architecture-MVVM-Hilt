@@ -5,12 +5,12 @@ import java.util.*
 
 class Converter {
     @TypeConverter
-    fun fromDateToLong(value : Date) :Long{
-        return value.time
+    fun fromDateToString(value : Date) :String{
+        return value.time.toString()
     }
 
     @TypeConverter
-    fun fromLongToDate(value : Long) :Date{
+    fun fromStringToDate(value : String) :Date{
         return Date(value)
     }
 }

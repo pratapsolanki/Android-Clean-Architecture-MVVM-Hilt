@@ -1,7 +1,7 @@
 package com.realworld.io.data.di
 
 import android.app.Application
-import com.example.dagger_hilt.dao.AppDao
+import com.realworld.io.data.local.AppDao
 import com.example.dagger_hilt.db.AppDatabase
 import dagger.Module
 import dagger.Provides
@@ -25,5 +25,6 @@ object AppModule {
     fun getDao(appDB: AppDatabase): AppDao {
         return appDB.getDAO()
     }
+
 
 }
