@@ -8,15 +8,11 @@ import android.view.ViewGroup
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
 import androidx.navigation.fragment.findNavController
-import com.realworld.io.util.Logger
 import com.realworld.io.R
-import com.realworld.io.util.Resource
-import com.realworld.io.util.TokenManager
 import com.realworld.io.databinding.FragmentSignupBinding
 import com.realworld.io.domain.model.SignUpInput
 import com.realworld.io.domain.model.UserCommon
-import com.realworld.io.util.gone
-import com.realworld.io.util.visible
+import com.realworld.io.util.*
 import dagger.hilt.android.AndroidEntryPoint
 import javax.inject.Inject
 
@@ -29,6 +25,7 @@ class SignupFragment : Fragment() {
 
     @Inject
     lateinit var tokenManager: TokenManager
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
     }
@@ -49,16 +46,21 @@ class SignupFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         binding.signUpBtn.setOnClickListener {
-            val validationResult = checkValidation()
-            if (validationResult) {
-                val signUpInput = SignUpInput(
-                    UserCommon(
-                        getUserRequest().email,
-                        getUserRequest().password,
-                        getUserRequest().username
+
+            if (!requireActivity().isNetworkAvailable()){
+                requireActivity().toast("No Internet Connected")
+            }else{
+                val validationResult = checkValidation()
+                if (validationResult) {
+                    val signUpInput = SignUpInput(
+                        UserCommon(
+                            getUserRequest().email,
+                            getUserRequest().password,
+                            getUserRequest().username
+                        )
                     )
-                )
-                viewModel.signup(signUpInput)
+                    viewModel.signup(signUpInput)
+                }
             }
         }
 
@@ -122,8 +124,8 @@ class SignupFragment : Fragment() {
     }
 
     override fun onDestroy() {
-        super.onDestroy()
         _binding = null
+        super.onDestroy()
     }
 
 

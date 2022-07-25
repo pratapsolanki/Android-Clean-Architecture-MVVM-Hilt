@@ -75,5 +75,9 @@ class EditFragment : Fragment() {
         }
         super.onViewCreated(view, savedInstanceState)
     }
+    override fun onDestroy() {
+        _binding = null
+        super.onDestroy()
+    }
 
 }

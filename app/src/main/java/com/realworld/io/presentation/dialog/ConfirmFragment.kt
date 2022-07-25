@@ -32,5 +32,9 @@ class ConfirmFragment : BottomSheetDialogFragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
     }
+    override fun onDestroy() {
+        _binding = null
+        super.onDestroy()
+    }
 
 }

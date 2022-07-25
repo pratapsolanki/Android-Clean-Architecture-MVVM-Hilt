@@ -6,7 +6,6 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import com.realworld.io.R
-import com.realworld.io.databinding.FragmentDashBaordBinding
 import com.realworld.io.databinding.FragmentUserprofileBinding
 import com.realworld.io.presentation.dashboard.ArticleViewModel
 
@@ -24,7 +23,7 @@ class Userprofile : Fragment() {
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
         _binding = FragmentUserprofileBinding.inflate(inflater,container,false)
         setHasOptionsMenu(true)
         return binding.root
@@ -34,21 +33,25 @@ class Userprofile : Fragment() {
         super.onViewCreated(view, savedInstanceState)
     }
 
+    @Deprecated("Deprecated in Java")
     override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
         inflater.inflate(R.menu.update_btn,menu)
         super.onCreateOptionsMenu(menu, inflater)
     }
 
+    @Deprecated("Deprecated in Java")
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         when(item.itemId){
             R.id.update -> {
                 findNavController().popBackStack()
-                true
-            }
-            else ->{
-                false
             }
         }
         return super.onOptionsItemSelected(item)
     }
+
+    override fun onDestroy() {
+        _binding = null
+        super.onDestroy()
+    }
+
 }

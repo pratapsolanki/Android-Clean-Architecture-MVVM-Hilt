@@ -45,12 +45,13 @@ class AddArticleFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
 
+
         val languages = resources.getStringArray(R.array.programming_languages)
         val arrayAdapter = ArrayAdapter(requireContext(), R.layout.dropdown_item, languages)
         binding.autocompleteTV.setAdapter(arrayAdapter)
 
         binding.autocompleteTV.setOnItemClickListener { adapterView, view, position, l ->
-            selectedText = languages.get(position)
+            selectedText = languages[position]
         }
 
         binding.addArticleBtn.setOnClickListener {
@@ -93,5 +94,10 @@ class AddArticleFragment : Fragment() {
             returnValue = false
         }
         return returnValue
+    }
+
+    override fun onDestroy() {
+        _binding = null
+        super.onDestroy()
     }
 }

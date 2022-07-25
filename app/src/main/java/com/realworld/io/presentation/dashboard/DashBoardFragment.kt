@@ -25,6 +25,7 @@ class DashBoardFragment : Fragment() , ArticleAdapter.OnItemClickListener{
     private  var _binding: FragmentDashBaordBinding?= null
     private val binding get() = _binding!!
     lateinit var articleAdapter: ArticleAdapter
+    private  var flag = 0
     @Inject lateinit var tokenManager: TokenManager
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -44,7 +45,9 @@ class DashBoardFragment : Fragment() , ArticleAdapter.OnItemClickListener{
         super.onViewCreated(view, savedInstanceState)
         if (requireContext().isNetworkAvailable()){
             viewModel.fetchAllArticle()
+            flag = 1
         }else {
+            flag = 0
             viewModel.fetchOfflineArticle()
         }
 
@@ -87,7 +90,7 @@ class DashBoardFragment : Fragment() , ArticleAdapter.OnItemClickListener{
     private fun onlineArticleObserver() {
         binding.shimmerLayout.stopShimmer()
 
-        viewModel.articleList.observe(requireActivity(), Observer {
+        viewModel.articleList.observe(viewLifecycleOwner, Observer {
 
             when (it) {
                 is Resource.Success -> {
@@ -118,17 +121,12 @@ class DashBoardFragment : Fragment() , ArticleAdapter.OnItemClickListener{
     }
 
     private fun offlineArticleObserver() {
-        viewModel.offlineArticleList.observe(requireActivity(), Observer {
+        viewModel.offlineArticleList.observe(viewLifecycleOwner, Observer {
             binding.shimmerLayout.stopShimmer();
             binding.shimmerLayout.gone()
             binding.articleRcv.visible()
             articleAdapter.setData(it)
         })
-    }
-
-    override fun onDestroy() {
-        super.onDestroy()
-        _binding = null
     }
 
     override fun itemClick(view: View, position: Int, article: ArticleX) {
@@ -142,7 +140,9 @@ class DashBoardFragment : Fragment() , ArticleAdapter.OnItemClickListener{
     }
 
     override fun itemClickLong(view: View, position: Int, article: ArticleX) {
-        openDialog(article)
+        if (flag == 0){
+           openDialog(article)
+        }
     }
 
     private fun openDialog(article: ArticleX) {
@@ -219,6 +219,10 @@ class DashBoardFragment : Fragment() , ArticleAdapter.OnItemClickListener{
         return super.onOptionsItemSelected(item)
     }
 
+    override fun onDestroy() {
+        _binding = null
+        super.onDestroy()
+    }
 
 }
 

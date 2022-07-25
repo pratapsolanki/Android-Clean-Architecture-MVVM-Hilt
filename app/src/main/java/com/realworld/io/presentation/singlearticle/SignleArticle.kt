@@ -42,5 +42,9 @@ class SignleArticle : Fragment() {
 
         super.onViewCreated(view, savedInstanceState)
     }
+    override fun onDestroy() {
+        _binding = null
+        super.onDestroy()
+    }
 
 }

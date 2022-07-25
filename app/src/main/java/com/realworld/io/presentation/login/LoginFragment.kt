@@ -1,22 +1,18 @@
 package com.realworld.io.presentation.login
 
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
 import androidx.navigation.fragment.findNavController
-import com.realworld.io.util.Logger
 import com.realworld.io.R
-import com.realworld.io.util.Resource
-import com.realworld.io.util.TokenManager
 import com.realworld.io.databinding.FragmentLoginBinding
 import com.realworld.io.domain.model.LoginInput
 import com.realworld.io.domain.model.User
-import com.realworld.io.util.gone
-import com.realworld.io.util.visible
+import com.realworld.io.util.*
 import dagger.hilt.android.AndroidEntryPoint
 import javax.inject.Inject
 
@@ -47,19 +43,29 @@ class LoginFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        binding.loginBtn.setOnClickListener {
-            val validationResult = checkValidation()
-            if (validationResult){
-                val loginInput = LoginInput(User(getUserRequest().email, getUserRequest().password))
-                viewModel.login(loginInput)
-            }
-        }
 
-        binding.signInBtn.setOnClickListener {
-            findNavController().navigate(R.id.action_loginFragment_to_signupFragment)
-        }
+            binding.loginBtn.setOnClickListener {
+                if (requireActivity().isNetworkAvailable()){
+                    val validationResult = checkValidation()
+                    if (validationResult) {
+                        val loginInput =
+                            LoginInput(User(getUserRequest().email, getUserRequest().password))
+                        viewModel.login(loginInput)
+                    }
+                }else {
+                    requireActivity().toast("No Internet Connected")
+                }
+            }
+
+            binding.signInBtn.setOnClickListener {
+                findNavController().navigate(R.id.action_loginFragment_to_signupFragment)
+            }
+
+
         bindObserver()
     }
+
+
 
     private fun getUserRequest() : User {
         val email = binding.edtEmail.text.toString().trim()
@@ -89,7 +95,7 @@ class LoginFragment : Fragment() {
 
     private fun bindObserver() {
         binding.progressBar.gone()
-        viewModel.loginResponseLiveData2.observe(requireActivity(), Observer {
+        viewModel.loginResponseLiveData2.observe(viewLifecycleOwner, Observer {
             when (it) {
                 is Resource.Success -> {
                     Logger.d(it.data.toString())
@@ -109,8 +115,8 @@ class LoginFragment : Fragment() {
     }
 
     override fun onDestroy() {
-        super.onDestroy()
         _binding = null
+        super.onDestroy()
     }
 
 
