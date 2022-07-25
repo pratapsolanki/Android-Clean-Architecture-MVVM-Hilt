@@ -6,6 +6,7 @@ import com.realworld.io.data.repo.Repositoryimpl
 import com.realworld.io.data.repo.RoomRepository
 import com.realworld.io.domain.model.Article
 import com.realworld.io.domain.model.ArticleX
+import com.realworld.io.util.Logger
 import com.realworld.io.util.Resource
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.CoroutineScope
@@ -40,5 +41,21 @@ class ArticleViewModel @Inject constructor(private val articalRepository: Reposi
             articleList.postValue(Resource.Error(e.message.toString()))
         }
     }
+
+
+    fun deleteArticle(article: ArticleX){
+        CoroutineScope(Dispatchers.IO).launch {
+            roomRepository.deleteArticle(article)
+            fetchOfflineArticle()
+        }
+    }
+
+    fun updateArticle(article: ArticleX){
+        CoroutineScope(Dispatchers.IO).launch {
+            roomRepository.updateArticle(article)
+            fetchOfflineArticle()
+        }
+    }
+
 
 }

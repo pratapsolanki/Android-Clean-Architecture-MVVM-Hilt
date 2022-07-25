@@ -28,6 +28,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.google.android.material.snackbar.Snackbar
 import com.google.gson.Gson
+import com.realworld.io.R
 import okhttp3.MediaType.Companion.toMediaTypeOrNull
 import okhttp3.MultipartBody
 import okhttp3.RequestBody
@@ -398,7 +399,7 @@ fun capitalizeString(str: String): String {
 fun Context.loadImage(imageView: ImageView , stringPath : String?){
     Glide.with(this)
         .load(stringPath)
-        .placeholder(ColorDrawable(Color.GRAY))
+        .placeholder(R.drawable.demo_avatar)
         .into(imageView)
 }
 

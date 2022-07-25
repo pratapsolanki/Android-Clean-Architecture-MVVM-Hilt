@@ -13,6 +13,7 @@ import androidx.navigation.ui.onNavDestinationSelected
 import androidx.navigation.ui.setupActionBarWithNavController
 import com.realworld.io.databinding.ActivityMainBinding
 import com.realworld.io.presentation.dashboard.ArticleViewModel
+import com.realworld.io.util.toast
 import dagger.hilt.android.AndroidEntryPoint
 
 
@@ -28,7 +29,6 @@ class MainActivity : AppCompatActivity() {
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
         setSupportActionBar(binding.topAppBar)
-
 
         receiver = AirplaneModeChangeReceiver()
 

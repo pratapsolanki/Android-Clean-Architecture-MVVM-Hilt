@@ -53,9 +53,9 @@ class SignupFragment : Fragment() {
             if (validationResult) {
                 val signUpInput = SignUpInput(
                     UserCommon(
-                        "${getUserRequest().email}",
-                        "${getUserRequest().password}",
-                        "${getUserRequest().username}"
+                        getUserRequest().email,
+                        getUserRequest().password,
+                        getUserRequest().username
                     )
                 )
                 viewModel.signup(signUpInput)
@@ -63,7 +63,7 @@ class SignupFragment : Fragment() {
         }
 
         binding.loginBtnText.setOnClickListener {
-            findNavController().popBackStack()
+            findNavController().navigate(R.id.action_signupFragment_to_loginFragment)
         }
         bindObserver()
     }
@@ -125,5 +125,6 @@ class SignupFragment : Fragment() {
         super.onDestroy()
         _binding = null
     }
+
 
 }

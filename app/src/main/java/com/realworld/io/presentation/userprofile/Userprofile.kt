@@ -42,10 +42,9 @@ class Userprofile : Fragment() {
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         when(item.itemId){
             R.id.update -> {
-                findNavController().navigate(R.id.action_dashBaord_to_addArticleFragment)
+                findNavController().popBackStack()
                 true
             }
-
             else ->{
                 false
             }

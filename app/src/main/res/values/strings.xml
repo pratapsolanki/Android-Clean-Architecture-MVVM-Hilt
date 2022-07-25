@@ -13,6 +13,10 @@
     <string name="delete_btn_text">delete</string>
     <string name="category_text">Motivation</string>
     <string name="category">Please Choose Category</string>
+    <string name="user_profile">User Profile</string>
+    <string name="add_btn">Add</string>
+    <string name="search_icon">Search</string>
+    <string name="logout">Logout</string>
 
 
     <string-array name="programming_languages">

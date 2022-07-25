@@ -13,6 +13,12 @@
         <action
             android:id="@+id/action_signupFragment_to_dashBaord"
             app:destination="@id/dashBaord" />
+        <action
+            app:popUpTo="@id/signupFragment"
+            app:popUpToInclusive="true"
+            app:restoreState="true"
+            android:id="@+id/action_signupFragment_to_loginFragment"
+            app:destination="@id/loginFragment" />
     </fragment>
     <fragment
         android:id="@+id/loginFragment"
@@ -20,6 +26,7 @@
         android:label=""
         tools:layout="@layout/fragment_login" >
         <action
+            app:restoreState="false"
             android:id="@+id/action_loginFragment_to_signupFragment"
             app:destination="@id/signupFragment"
             app:enterAnim="@android:anim/fade_in"
@@ -40,19 +47,31 @@
         android:label="Articles"
         tools:layout="@layout/fragment_dash_baord" >
         <action
+            app:restoreState="true"
             android:id="@+id/action_dashBaord_to_signleArticle"
             app:destination="@id/signleArticle" />
         <action
+            app:popUpTo="@id/dashBaord"
+            app:popUpToInclusive="true"
+            app:restoreState="true"
+            android:id="@+id/action_dashBaord_to_loginFragment"
+            app:destination="@id/loginFragment" />
+
+        <action
+            app:restoreState="true"
             android:id="@+id/action_dashBaord_pop_including_loginFragment"
             app:popUpTo="@id/dashBaord"
             app:popUpToInclusive="true" />
         <action
+            app:restoreState="true"
             android:id="@+id/action_dashBaord_to_userprofile"
             app:destination="@id/userprofile" />
         <action
+            app:restoreState="true"
             android:id="@+id/action_dashBaord_to_addArticleFragment"
             app:destination="@id/addArticleFragment" />
         <action
+            app:restoreState="true"
             android:id="@+id/action_dashBaord_to_editFragment"
             app:destination="@id/editFragment" />
 
@@ -103,9 +122,5 @@
         android:id="@+id/confirmFragment2"
         android:name="com.realworld.io.presentation.dialog.ConfirmFragment"
         android:label="fragment_confirm"
-        tools:layout="@layout/fragment_confirm" >
-        <action
-            android:id="@+id/action_confirmFragment2_self"
-            app:destination="@id/confirmFragment2" />
-    </dialog>
+        tools:layout="@layout/fragment_confirm" />
 </navigation>

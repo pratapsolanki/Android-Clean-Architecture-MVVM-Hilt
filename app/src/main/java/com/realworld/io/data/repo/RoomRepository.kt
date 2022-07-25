@@ -18,4 +18,13 @@ class RoomRepository @Inject constructor(private val appDao: AppDao) {
     fun insertRecords(article: List<ArticleX>) {
         appDao.insertListArticle(article)
     }
+
+    fun deleteArticle(article: ArticleX){
+        appDao.deleteArticle(article)
+    }
+
+    fun updateArticle(article: ArticleX) {
+        appDao.updateArticle(article)
+    }
+
 }

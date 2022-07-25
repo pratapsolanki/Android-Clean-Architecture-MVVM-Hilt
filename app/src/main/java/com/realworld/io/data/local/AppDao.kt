@@ -19,4 +19,10 @@ interface AppDao {
     @Insert
     fun insertSingleArticle(article: ArticleX)
 
+    @Delete
+    fun deleteArticle(article: ArticleX)
+
+    @Update(onConflict = OnConflictStrategy.REPLACE)
+    fun updateArticle(article: ArticleX)
+
 }

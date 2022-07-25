@@ -11,17 +11,24 @@ import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import com.realworld.io.R
 import com.realworld.io.databinding.FragmentEditBinding
+import com.realworld.io.domain.model.ArticleX
+import com.realworld.io.domain.model.Author
+import com.realworld.io.presentation.dashboard.ArticleViewModel
 import com.realworld.io.util.Logger
+import com.realworld.io.util.TokenManager
 import dagger.hilt.android.AndroidEntryPoint
 import java.util.*
+import javax.inject.Inject
 
 @AndroidEntryPoint
 class EditFragment : Fragment() {
 
-    private val viewModel : EditArticleViewModel by viewModels()
+    private val viewModel : ArticleViewModel by viewModels()
     val args: EditFragmentArgs by navArgs()
     private  var _binding: FragmentEditBinding?= null
     private val binding get() = _binding!!
+    @Inject
+    lateinit var  tokenManager: TokenManager
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -53,12 +60,15 @@ class EditFragment : Fragment() {
                 val body = edtBody.text.toString().trim()
                 val title = edtTitle.text.toString().trim()
                 val desc = edtDesc.text.toString().trim()
-                val category = autocompleteTV.text.toString().trim()
-
+                val category = mutableListOf<String>()
+               val createDate = args.sampleData?.createdAt.toString()
+               val username = tokenManager.getName()
+                category.add(autocompleteTV.text.toString().trim())
                 Logger.d("$body $title title")
-//                val articleModel = ArticleModel(id, body = body, title = title, description = desc, username = username, createdAt = Date() , updatedAt = Date(), category = category)
-//
-//                viewModel.updateArticle(articleModel)
+
+               val articleModel = ArticleX(body = body, title = title , createdAt = createDate , description = desc, tagList = category, updatedAt = Date().toString(), author = Author("",false,"",username))
+               Logger.d(articleModel.toString())
+                viewModel.updateArticle(articleModel)
                 findNavController().popBackStack()
 
             }

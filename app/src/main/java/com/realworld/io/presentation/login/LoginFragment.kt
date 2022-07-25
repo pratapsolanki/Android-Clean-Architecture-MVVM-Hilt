@@ -50,7 +50,7 @@ class LoginFragment : Fragment() {
         binding.loginBtn.setOnClickListener {
             val validationResult = checkValidation()
             if (validationResult){
-                val loginInput = LoginInput(User("${getUserRequest().email}","${getUserRequest().password}"))
+                val loginInput = LoginInput(User(getUserRequest().email, getUserRequest().password))
                 viewModel.login(loginInput)
             }
         }

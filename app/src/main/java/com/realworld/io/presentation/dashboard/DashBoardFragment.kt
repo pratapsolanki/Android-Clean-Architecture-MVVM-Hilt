@@ -3,6 +3,7 @@ package com.realworld.io.presentation.dashboard
 import android.app.AlertDialog
 import android.os.Bundle
 import android.view.*
+import androidx.appcompat.widget.SearchView
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
@@ -15,6 +16,7 @@ import com.realworld.io.domain.model.ArticleX
 import com.realworld.io.util.*
 import dagger.hilt.android.AndroidEntryPoint
 import javax.inject.Inject
+
 
 @AndroidEntryPoint
 class DashBoardFragment : Fragment() , ArticleAdapter.OnItemClickListener{
@@ -63,15 +65,18 @@ class DashBoardFragment : Fragment() , ArticleAdapter.OnItemClickListener{
 
     private fun logout() {
         tokenManager.logout()
-//        findNavController().popBackStack(R.id.loginFragment,true)
-        findNavController().navigate(R.id.loginFragment)
+//        findNavController().popBackStack()
+        findNavController().navigate(R.id.action_dashBaord_to_loginFragment)
+//        findNavController().navigate(R.id.loginFragment)
     }
 
 
     private fun iniRecyclerview() {
-        articleAdapter = ArticleAdapter(ArrayList(), this@DashBoardFragment)
+        articleAdapter = ArticleAdapter(this@DashBoardFragment)
         binding.articleRcv.layoutManager = LinearLayoutManager(requireActivity())
         binding.articleRcv.adapter = articleAdapter
+        articleAdapter.filter
+        articleAdapter.notifyDataSetChanged()
     }
 
 
@@ -80,7 +85,7 @@ class DashBoardFragment : Fragment() , ArticleAdapter.OnItemClickListener{
     }
 
     private fun onlineArticleObserver() {
-        binding.shimmerLayout.stopShimmer();
+        binding.shimmerLayout.stopShimmer()
 
         viewModel.articleList.observe(requireActivity(), Observer {
 
@@ -88,7 +93,7 @@ class DashBoardFragment : Fragment() , ArticleAdapter.OnItemClickListener{
                 is Resource.Success -> {
                     Logger.d(it.data.toString())
                     it.data?.let {
-                        articleAdapter.setData(it.articles)
+                        renderPhotosList(it.articles)
                         binding.shimmerLayout.stopShimmer()
                         binding.shimmerLayout.gone()
                         binding.articleRcv.visible()
@@ -105,6 +110,11 @@ class DashBoardFragment : Fragment() , ArticleAdapter.OnItemClickListener{
                 }
             }
         })
+    }
+
+    private fun renderPhotosList(articles: MutableList<ArticleX>) {
+        articleAdapter.setData(articles)
+        articleAdapter.notifyDataSetChanged()
     }
 
     private fun offlineArticleObserver() {
@@ -164,6 +174,7 @@ class DashBoardFragment : Fragment() , ArticleAdapter.OnItemClickListener{
             setTitle("Are You Really want to Delete it?")
             setMessage("This change cant be Revert....")
             setPositiveButton("Yes") { _, _ ->
+               viewModel.deleteArticle(article)
             }
             setNegativeButton("No") { _, _ ->
 
@@ -171,28 +182,38 @@ class DashBoardFragment : Fragment() , ArticleAdapter.OnItemClickListener{
         }.create().show()
     }
 
-
     override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
         inflater.inflate(R.menu.user_info,menu)
+
+        val searchItem = menu.findItem(R.id.actionSearch)
+
+        val searchView: SearchView = searchItem.actionView as SearchView
+
+        searchView.setOnQueryTextListener(object : SearchView.OnQueryTextListener{
+            override fun onQueryTextSubmit(query: String?): Boolean {
+                return false
+            }
+
+            override fun onQueryTextChange(newText: String?): Boolean {
+                articleAdapter.filter.filter(newText)
+                return false
+            }
+
+        })
         super.onCreateOptionsMenu(menu, inflater)
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
+
         when(item.itemId){
             R.id.add -> {
                 findNavController().navigate(R.id.action_dashBaord_to_addArticleFragment)
-                true
             }
             R.id.about ->{
                 findNavController().navigate(R.id.action_dashBaord_to_userprofile)
-                true
             }
             R.id.logout -> {
                 logout()
-                true
-            }
-            else ->{
-                false
             }
         }
         return super.onOptionsItemSelected(item)

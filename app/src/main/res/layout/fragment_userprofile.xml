@@ -8,9 +8,9 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     tools:context=".presentation.userprofile.Userprofile">
 
-<FrameLayout
-    android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
 
 
         <com.google.android.material.imageview.ShapeableImageView
@@ -24,101 +24,101 @@
             android:scaleType="fitStart"
             app:srcCompat="@drawable/ic_topwave"/>
 
-    <androidx.constraintlayout.widget.ConstraintLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent">
-
-
-        <com.google.android.material.imageview.ShapeableImageView
-            android:layout_width="70dp"
-            android:layout_height="70dp"
-            app:layout_constraintCircleRadius="10dp"
-            android:layout_marginTop="36dp"
-            app:shapeAppearanceOverlay="@style/circleImageView"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.498"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/loginTxt"
-            app:srcCompat="@drawable/demo_avatar" />
-
-        <ProgressBar
-            android:visibility="gone"
-            android:id="@+id/progressBar"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center_horizontal"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
-
-
-        <com.google.android.material.textview.MaterialTextView
-            android:id="@+id/loginTxt"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="92dp"
-            android:text="User Profile"
-            android:textColor="@color/purple_700"
-            android:textSize="30sp"
-            android:textStyle="bold"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
-
-
-        <com.google.android.material.textfield.TextInputLayout
-            android:id="@+id/inputEmail"
-            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+        <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="120dp"
-            android:paddingHorizontal="16dp"
-            android:singleLine="true"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/loginTxt">
+            android:layout_height="match_parent">
 
-            <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/edtEmail"
+
+            <com.google.android.material.imageview.ShapeableImageView
+                android:layout_width="70dp"
+                android:layout_height="70dp"
+                app:layout_constraintCircleRadius="10dp"
+                android:layout_marginTop="36dp"
+                app:shapeAppearanceOverlay="@style/circleImageView"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.498"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/loginTxt"
+                app:srcCompat="@drawable/demo_avatar" />
+
+            <ProgressBar
+                android:visibility="gone"
+                android:id="@+id/progressBar"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+
+            <com.google.android.material.textview.MaterialTextView
+                android:id="@+id/loginTxt"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="92dp"
+                android:text="User Profile"
+                android:textColor="@color/purple_700"
+                android:textSize="30sp"
+                android:textStyle="bold"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/inputEmail"
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_below="@+id/loginTxt"
-                android:hint="Enter Email Id"
-                android:text="User@gmail.com"
+                android:layout_marginTop="120dp"
+                android:paddingHorizontal="16dp"
                 android:singleLine="true"
-                app:layout_constraintTop_toBottomOf="@+id/loginTxt"
-                tools:layout_editor_absoluteX="-16dp" />
-        </com.google.android.material.textfield.TextInputLayout>
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/loginTxt">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/edtEmail"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/loginTxt"
+                    android:hint="Enter Email Id"
+                    android:text="User@gmail.com"
+                    android:singleLine="true"
+                    app:layout_constraintTop_toBottomOf="@+id/loginTxt"
+                    tools:layout_editor_absoluteX="-16dp" />
+            </com.google.android.material.textfield.TextInputLayout>
 
 
-        <com.google.android.material.textfield.TextInputLayout
-            android:id="@+id/inputUsername"
-            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="24dp"
-            android:paddingHorizontal="16dp"
-            android:layout_marginBottom="60dp"
-            android:singleLine="true"
-            app:layout_constraintTop_toBottomOf="@+id/inputEmail"
-            tools:layout_editor_absoluteX="0dp">
-
-            <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/edtUsername"
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/inputUsername"
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_below="@+id/loginTxt"
-                android:hint="Enter Username"
-                android:text="demouser"
+                android:layout_marginTop="24dp"
+                android:paddingHorizontal="16dp"
+                android:layout_marginBottom="60dp"
                 android:singleLine="true"
-                app:layout_constraintTop_toBottomOf="@+id/loginTxt"
-                tools:layout_editor_absoluteX="-16dp" />
-        </com.google.android.material.textfield.TextInputLayout>
+                app:layout_constraintTop_toBottomOf="@+id/inputEmail"
+                tools:layout_editor_absoluteX="0dp">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/edtUsername"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/loginTxt"
+                    android:hint="Enter Username"
+                    android:text="demouser"
+                    android:singleLine="true"
+                    app:layout_constraintTop_toBottomOf="@+id/loginTxt"
+                    tools:layout_editor_absoluteX="-16dp" />
+            </com.google.android.material.textfield.TextInputLayout>
 
 
 
-    </androidx.constraintlayout.widget.ConstraintLayout>
+        </androidx.constraintlayout.widget.ConstraintLayout>
 
-</FrameLayout>
+    </FrameLayout>
 
 </androidx.core.widget.NestedScrollView>

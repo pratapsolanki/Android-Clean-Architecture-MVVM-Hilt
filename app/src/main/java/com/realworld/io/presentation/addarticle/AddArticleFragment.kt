@@ -1,5 +1,6 @@
 package com.realworld.io.presentation.addarticle
 
+import android.graphics.drawable.Drawable
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -16,6 +17,7 @@ import com.realworld.io.domain.model.Author
 import com.realworld.io.util.TokenManager
 import com.realworld.io.util.toast
 import dagger.hilt.android.AndroidEntryPoint
+import java.util.*
 import javax.inject.Inject
 
 
@@ -58,8 +60,9 @@ class AddArticleFragment : Fragment() {
                 val title = binding.edtTitle.text.toString().trim()
                 val desc = binding.edtDesc.text.toString().trim()
                 val array = mutableListOf<String>()
+                val username = tokenManager.getName()
                 array.add(selectedText)
-                val articleModel = ArticleX(body = body, title = title , description = desc, tagList = array, author = Author("",false,"","amarjeet"))
+                val articleModel = ArticleX(body = body, title = title , description = desc, tagList = array, createdAt = Date().toString(), author = Author("",false, image = "", username = username))
                 viewModel.addArticle(articleModel)
                 findNavController().popBackStack()
             }

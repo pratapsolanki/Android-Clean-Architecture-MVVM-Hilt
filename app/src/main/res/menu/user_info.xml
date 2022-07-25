@@ -2,19 +2,25 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto">
     <item
+        android:id="@+id/actionSearch"
+        android:icon="@drawable/ic_magnify"
+        android:title="@string/search_icon"
+        app:actionViewClass="androidx.appcompat.widget.SearchView"
+        app:showAsAction="ifRoom|collapseActionView" />
+    <item
         android:id="@+id/add"
         android:icon="@drawable/ic_baseline_add_24"
         app:showAsAction="always"
-        android:title="Add"/>
+        android:title="@string/add_btn"/>
     <item
         android:id="@+id/about"
         android:icon="@android:drawable/ic_dialog_info"
         app:showAsAction="never"
-        android:title="User Profile">
+        android:title="@string/user_profile">
     </item>
     <item
         android:id="@+id/logout"
         app:showAsAction="never"
-        android:title="Logout">
+        android:title="@string/logout">
     </item>
 </menu>
