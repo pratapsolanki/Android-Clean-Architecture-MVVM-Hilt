@@ -7,7 +7,7 @@ import com.realworld.io.domain.model.ArticleX
 interface AppDao {
 
     @Query("SELECT * FROM article_table")
-    fun getArticle(): List<ArticleX>
+    fun getArticle(): MutableList<ArticleX>
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     fun insertListArticle(article: List<ArticleX>)

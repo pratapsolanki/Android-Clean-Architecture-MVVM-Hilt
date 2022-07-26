@@ -7,6 +7,7 @@ import androidx.appcompat.widget.SearchView
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
+import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.realworld.io.MainActivity
@@ -15,6 +16,7 @@ import com.realworld.io.databinding.FragmentDashBaordBinding
 import com.realworld.io.domain.model.ArticleX
 import com.realworld.io.util.*
 import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.flow.collectLatest
 import javax.inject.Inject
 
 
@@ -64,9 +66,7 @@ class DashBoardFragment : Fragment() , ArticleAdapter.OnItemClickListener{
 
     private fun logout() {
         tokenManager.logout()
-//        findNavController().popBackStack()
         findNavController().navigate(R.id.action_dashBaord_to_loginFragment)
-//        findNavController().navigate(R.id.loginFragment)
     }
 
 
@@ -85,24 +85,25 @@ class DashBoardFragment : Fragment() , ArticleAdapter.OnItemClickListener{
 
     private fun onlineArticleObserver() {
         binding.shimmerLayout.stopShimmer()
-
-        viewModel.articleList.observe(viewLifecycleOwner) {
-            when (it) {
-                is Resource.Success -> {
-                    it.data?.let {
-                        renderPhotosList(it.articles)
+        lifecycleScope.launchWhenCreated {
+            viewModel.articleUIState.collectLatest {
+                when (it) {
+                    is Resource.Success -> {
+                        it.data?.let {
+                            renderPhotosList(it.articles)
+                            binding.shimmerLayout.stopShimmer()
+                            binding.shimmerLayout.gone()
+                            binding.articleRcv.visible()
+                        }
+                    }
+                    is Resource.Error -> {
                         binding.shimmerLayout.stopShimmer()
                         binding.shimmerLayout.gone()
                         binding.articleRcv.visible()
                     }
-                }
-                is Resource.Error -> {
-                    binding.shimmerLayout.stopShimmer()
-                    binding.shimmerLayout.gone()
-                    binding.articleRcv.visible()
-                }
-                is Resource.Loading -> {
-                    binding.shimmerLayout.startShimmer()
+                    is Resource.Loading -> {
+                        binding.shimmerLayout.startShimmer()
+                    }
                 }
             }
         }
@@ -114,11 +115,28 @@ class DashBoardFragment : Fragment() , ArticleAdapter.OnItemClickListener{
     }
 
     private fun offlineArticleObserver() {
-        viewModel.offlineArticleList.observe(viewLifecycleOwner) {
-            binding.shimmerLayout.stopShimmer()
-            binding.shimmerLayout.gone()
-            binding.articleRcv.visible()
-            articleAdapter.setData(it)
+        binding.shimmerLayout.stopShimmer()
+        lifecycleScope.launchWhenCreated {
+            viewModel.offlineArticleUIState.collectLatest {
+                when (it) {
+                    is Resource.Success -> {
+                        it.data?.let {
+                            renderPhotosList(it as MutableList<ArticleX>)
+                            binding.shimmerLayout.stopShimmer()
+                            binding.shimmerLayout.gone()
+                            binding.articleRcv.visible()
+                        }
+                    }
+                    is Resource.Error -> {
+                        binding.shimmerLayout.stopShimmer()
+                        binding.shimmerLayout.gone()
+                        binding.articleRcv.visible()
+                    }
+                    is Resource.Loading -> {
+                        binding.shimmerLayout.startShimmer()
+                    }
+                }
+            }
         }
     }
 

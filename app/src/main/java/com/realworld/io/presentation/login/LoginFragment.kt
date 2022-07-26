@@ -42,30 +42,24 @@ class LoginFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
-            binding.loginBtn.setOnClickListener {
-                if (requireActivity().isNetworkAvailable()){
-                    val validationResult = checkValidation()
+        bindObserver()
+        binding.progressBar.gone()
+        binding.loginBtn.setOnClickListener {
+            if (requireActivity().isNetworkAvailable()){
+                val validationResult = checkValidation()
                     if (validationResult) {
                         val loginInput = LoginInput(User(getUserRequest().email, getUserRequest().password))
                         viewModel.loginWithState(loginInput)
                     }
-                }else {
-                    requireActivity().toast("No Internet Connected")
-                }
-
-
+            }else {
+                requireActivity().toast("No Internet Connected")
             }
+        }
 
-            binding.signInBtn.setOnClickListener {
-                findNavController().navigate(R.id.action_loginFragment_to_signupFragment)
-            }
-
-
-        bindObserver()
+        binding.signInBtn.setOnClickListener {
+            findNavController().navigate(R.id.action_loginFragment_to_signupFragment)
+        }
     }
-
-
 
     private fun getUserRequest() : User {
         val email = binding.edtEmail.text.toString().trim()
@@ -94,7 +88,6 @@ class LoginFragment : Fragment() {
     }
 
     private fun bindObserver() {
-        binding.progressBar.gone()
         lifecycleScope.launchWhenCreated {
             viewModel.loginUIState.collectLatest {
                 when (it) {

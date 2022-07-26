@@ -7,6 +7,8 @@
         <entry key="app/src/main/res/drawable/ic_baseline_add_24.xml" value="0.2555" />
         <entry key="app/src/main/res/drawable/ic_magnify.xml" value="0.233" />
         <entry key="app/src/main/res/drawable/ic_update.xml" value="0.233" />
+        <entry key="app/src/main/res/drawable/ic_wave.xml" value="0.198" />
+        <entry key="app/src/main/res/drawable/loader.xml" value="0.197" />
         <entry key="app/src/main/res/font/font.xml" value="0.2791666666666667" />
         <entry key="app/src/main/res/layout/activity_main.xml" value="0.25" />
         <entry key="app/src/main/res/layout/dropdown_item.xml" value="0.56640625" />

@@ -6,7 +6,7 @@ import javax.inject.Inject
 
 class RoomRepository @Inject constructor(private val appDao: AppDao) {
 
-    fun getRecords(): List<ArticleX>{
+    fun getRecords(): MutableList<ArticleX>{
         return appDao.getArticle()
     }
 
