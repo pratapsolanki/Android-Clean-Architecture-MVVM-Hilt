@@ -94,7 +94,6 @@ class DashBoardFragment : Fragment() , ArticleAdapter.OnItemClickListener{
 
             when (it) {
                 is Resource.Success -> {
-                    Logger.d(it.data.toString())
                     it.data?.let {
                         renderPhotosList(it.articles)
                         binding.shimmerLayout.stopShimmer()
@@ -106,7 +105,6 @@ class DashBoardFragment : Fragment() , ArticleAdapter.OnItemClickListener{
                     binding.shimmerLayout.stopShimmer();
                     binding.shimmerLayout.gone()
                     binding.articleRcv.visible()
-                    Logger.d(it.errorMessage.toString() + "Error")
                 }
                 is Resource.Loading -> {
                     binding.shimmerLayout.startShimmer();

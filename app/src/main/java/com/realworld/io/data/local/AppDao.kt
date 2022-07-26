@@ -17,7 +17,7 @@ interface AppDao {
     fun insertListArticle(article: List<ArticleX>)
 
     @Insert
-    fun insertSingleArticle(article: ArticleX)
+    fun insertSingleArticle(article: ArticleX) : Long
 
     @Delete
     fun deleteArticle(article: ArticleX)

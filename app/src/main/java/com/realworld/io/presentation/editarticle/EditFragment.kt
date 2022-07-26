@@ -64,10 +64,8 @@ class EditFragment : Fragment() {
                val createDate = args.sampleData?.createdAt.toString()
                val username = tokenManager.getName()
                 category.add(autocompleteTV.text.toString().trim())
-                Logger.d("$body $title title")
 
                val articleModel = ArticleX(body = body, title = title , createdAt = createDate , description = desc, tagList = category, updatedAt = Date().toString(), author = Author("",false,"",username))
-               Logger.d(articleModel.toString())
                 viewModel.updateArticle(articleModel)
                 findNavController().popBackStack()
 

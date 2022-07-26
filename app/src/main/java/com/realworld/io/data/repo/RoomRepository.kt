@@ -11,8 +11,8 @@ class RoomRepository @Inject constructor(private val appDao: AppDao) {
         return appDao.getArticle()
     }
 
-    fun insertSingleArticle(article: ArticleX){
-        appDao.insertSingleArticle(article)
+    fun insertSingleArticle(article: ArticleX) : Long{
+        return appDao.insertSingleArticle(article)
     }
 
     fun insertRecords(article: List<ArticleX>) {

@@ -1,7 +1,7 @@
 package com.realworld.io.presentation.signup
 
-import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import androidx.lifecycle.viewModelScope
 import com.realworld.io.data.repo.Repositoryimpl
 import com.realworld.io.domain.model.SignUpInput
 import com.realworld.io.domain.model.UserLoginResponse
@@ -9,27 +9,28 @@ import com.realworld.io.util.Resource
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.delay
+import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.launch
 import java.lang.Exception
 import javax.inject.Inject
 
 @HiltViewModel
 class SignupViewModel @Inject constructor(val articalRepository: Repositoryimpl) : ViewModel() {
-    val loginResponseLiveData = MutableLiveData<Resource<UserLoginResponse>>()
+    private val _signUpState = MutableStateFlow<Resource<UserLoginResponse>>(Resource.Loading())
+    val signUpUIState: StateFlow<Resource<UserLoginResponse>> = _signUpState
 
-    fun signup(signUpInput: SignUpInput){
-        try {
-            CoroutineScope(Dispatchers.IO).launch {
-                val response = articalRepository.getSignup(signUpInput)
-                if (response.isSuccessful) {
-                    loginResponseLiveData.postValue(Resource.Success(response.body()!!))
-                }else{
-                    loginResponseLiveData.postValue(Resource.Error("Something Went wrong"))
-                }
-            }
-        }catch (e: Exception){
-            loginResponseLiveData.postValue(Resource.Error(e.message.toString()))
+    fun signup(signUpInput: SignUpInput) = viewModelScope.launch {
+        _signUpState.value = Resource.Loading()
+        // fake network request time
+        val response = articalRepository.getSignup(signUpInput)
+        delay(2000L)
+        if (response.isSuccessful) {
+            _signUpState.value =Resource.Success(response.body()!!)
+        } else {
+            _signUpState.value = Resource.Error("Error Wrong Email or Password")
         }
-
     }
+
 }

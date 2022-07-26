@@ -7,6 +7,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
+import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import com.realworld.io.R
 import com.realworld.io.databinding.FragmentSignupBinding
@@ -14,6 +15,7 @@ import com.realworld.io.domain.model.SignUpInput
 import com.realworld.io.domain.model.UserCommon
 import com.realworld.io.util.*
 import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.flow.collectLatest
 import javax.inject.Inject
 
 @AndroidEntryPoint
@@ -104,23 +106,24 @@ class SignupFragment : Fragment() {
 
     private fun bindObserver() {
         binding.progressBar.gone()
-        viewModel.loginResponseLiveData.observe(requireActivity(), Observer {
-            when (it) {
-                is Resource.Success -> {
-                    binding.progressBar.gone()
-                    Logger.d(it.data.toString())
-                    tokenManager.saveToken(it.data!!.user.token,it.data!!.user.username)
-                    findNavController().navigate(R.id.action_signupFragment_to_dashBaord)
-                }
-                is Resource.Error -> {
-                    binding.errorText.text = it.errorMessage
-                    binding.progressBar.gone()
-                }
-                is Resource.Loading -> {
-                    binding.progressBar.visible()
+        lifecycleScope.launchWhenCreated {
+            viewModel.signUpUIState.collectLatest {
+                when (it) {
+                    is Resource.Success -> {
+                        binding.progressBar.gone()
+                        tokenManager.saveToken(it.data!!.user.token,it.data!!.user.username)
+                        findNavController().navigate(R.id.action_signupFragment_to_dashBaord)
+                    }
+                    is Resource.Error -> {
+                        binding.errorText.text = it.errorMessage
+                        binding.progressBar.gone()
+                    }
+                    is Resource.Loading -> {
+                        binding.progressBar.visible()
+                    }
                 }
             }
-        })
+        }
     }
 
     override fun onDestroy() {
