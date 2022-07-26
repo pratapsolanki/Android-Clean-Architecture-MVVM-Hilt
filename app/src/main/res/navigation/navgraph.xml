@@ -81,7 +81,7 @@
     </fragment>
     <fragment
         android:id="@+id/signleArticle"
-        android:name="com.realworld.io.presentation.singlearticle.SignleArticle"
+        android:name="com.realworld.io.presentation.singlearticle.SingleArticle"
         android:label="Article Detail"
         tools:layout="@layout/fragment_signle_article" >
         <action

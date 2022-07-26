@@ -1,6 +1,5 @@
 package com.realworld.io.presentation.addarticle
 
-import android.graphics.drawable.Drawable
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -11,7 +10,6 @@ import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import com.realworld.io.R
 import com.realworld.io.databinding.FragmentAddArticleBinding
-import com.realworld.io.domain.model.Article
 import com.realworld.io.domain.model.ArticleX
 import com.realworld.io.domain.model.Author
 import com.realworld.io.util.TokenManager
@@ -29,16 +27,12 @@ class AddArticleFragment : Fragment() {
     private val binding get() = _binding!!
     @Inject
     lateinit var  tokenManager: TokenManager
-    var selectedText = ""
-
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-    }
+    private var selectedText = ""
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
         _binding = FragmentAddArticleBinding.inflate(inflater,container,false)
         return binding.root
     }
@@ -50,7 +44,7 @@ class AddArticleFragment : Fragment() {
         val arrayAdapter = ArrayAdapter(requireContext(), R.layout.dropdown_item, languages)
         binding.autocompleteTV.setAdapter(arrayAdapter)
 
-        binding.autocompleteTV.setOnItemClickListener { adapterView, view, position, l ->
+        binding.autocompleteTV.setOnItemClickListener { _, _, position, _ ->
             selectedText = languages[position]
         }
 

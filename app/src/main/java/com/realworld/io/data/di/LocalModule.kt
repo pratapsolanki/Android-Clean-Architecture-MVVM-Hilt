@@ -2,7 +2,7 @@ package com.realworld.io.data.di
 
 import android.app.Application
 import com.realworld.io.data.local.AppDao
-import com.example.dagger_hilt.db.AppDatabase
+import com.realworld.io.data.db.AppDatabase
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn

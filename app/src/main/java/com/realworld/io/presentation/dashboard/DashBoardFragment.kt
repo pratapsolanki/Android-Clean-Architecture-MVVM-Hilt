@@ -28,14 +28,10 @@ class DashBoardFragment : Fragment() , ArticleAdapter.OnItemClickListener{
     private  var flag = 0
     @Inject lateinit var tokenManager: TokenManager
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-    }
-
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
         _binding = FragmentDashBaordBinding.inflate(inflater,container,false)
         setHasOptionsMenu(true)
         return binding.root
@@ -90,8 +86,7 @@ class DashBoardFragment : Fragment() , ArticleAdapter.OnItemClickListener{
     private fun onlineArticleObserver() {
         binding.shimmerLayout.stopShimmer()
 
-        viewModel.articleList.observe(viewLifecycleOwner, Observer {
-
+        viewModel.articleList.observe(viewLifecycleOwner) {
             when (it) {
                 is Resource.Success -> {
                     it.data?.let {
@@ -102,15 +97,15 @@ class DashBoardFragment : Fragment() , ArticleAdapter.OnItemClickListener{
                     }
                 }
                 is Resource.Error -> {
-                    binding.shimmerLayout.stopShimmer();
+                    binding.shimmerLayout.stopShimmer()
                     binding.shimmerLayout.gone()
                     binding.articleRcv.visible()
                 }
                 is Resource.Loading -> {
-                    binding.shimmerLayout.startShimmer();
+                    binding.shimmerLayout.startShimmer()
                 }
             }
-        })
+        }
     }
 
     private fun renderPhotosList(articles: MutableList<ArticleX>) {
@@ -119,12 +114,12 @@ class DashBoardFragment : Fragment() , ArticleAdapter.OnItemClickListener{
     }
 
     private fun offlineArticleObserver() {
-        viewModel.offlineArticleList.observe(viewLifecycleOwner, Observer {
-            binding.shimmerLayout.stopShimmer();
+        viewModel.offlineArticleList.observe(viewLifecycleOwner) {
+            binding.shimmerLayout.stopShimmer()
             binding.shimmerLayout.gone()
             binding.articleRcv.visible()
             articleAdapter.setData(it)
-        })
+        }
     }
 
     override fun itemClick(view: View, position: Int, article: ArticleX) {

@@ -1,7 +1,6 @@
 package com.realworld.io.data.repo
 
 import com.realworld.io.data.local.AppDao
-import com.realworld.io.domain.model.Article
 import com.realworld.io.domain.model.ArticleX
 import javax.inject.Inject
 

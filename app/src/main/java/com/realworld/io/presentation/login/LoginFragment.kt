@@ -24,14 +24,12 @@ class LoginFragment : Fragment() {
     private val binding get() = _binding!!
     @Inject lateinit var  tokenManager: TokenManager
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-    }
+
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
         _binding = FragmentLoginBinding.inflate(inflater,container,false)
         if(::tokenManager.isInitialized){
              if (tokenManager.getToken() != null){
@@ -102,7 +100,7 @@ class LoginFragment : Fragment() {
                 when (it) {
                     is Resource.Success -> {
                         binding.progressBar.gone()
-                        tokenManager.saveToken(it.data!!.user.token,it.data!!.user.username)
+                        tokenManager.saveToken(it.data!!.user.token,it.data.user.username)
                         findNavController().navigate(R.id.action_loginFragment_to_dashBaord)
                     }
                     is Resource.Error -> {

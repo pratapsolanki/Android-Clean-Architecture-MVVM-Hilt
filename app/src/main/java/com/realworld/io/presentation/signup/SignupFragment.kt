@@ -1,12 +1,11 @@
 package com.realworld.io.presentation.signup
 
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
-import androidx.lifecycle.Observer
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import com.realworld.io.R
@@ -28,14 +27,10 @@ class SignupFragment : Fragment() {
     @Inject
     lateinit var tokenManager: TokenManager
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-    }
-
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
         _binding = FragmentSignupBinding.inflate(inflater, container, false)
         if (::tokenManager.isInitialized) {
             if (tokenManager.getToken() != null) {
@@ -111,7 +106,7 @@ class SignupFragment : Fragment() {
                 when (it) {
                     is Resource.Success -> {
                         binding.progressBar.gone()
-                        tokenManager.saveToken(it.data!!.user.token,it.data!!.user.username)
+                        tokenManager.saveToken(it.data!!.user.token, it.data.user.username)
                         findNavController().navigate(R.id.action_signupFragment_to_dashBaord)
                     }
                     is Resource.Error -> {

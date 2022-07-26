@@ -6,7 +6,6 @@ import com.realworld.io.data.repo.Repositoryimpl
 import com.realworld.io.data.repo.RoomRepository
 import com.realworld.io.domain.model.Article
 import com.realworld.io.domain.model.ArticleX
-import com.realworld.io.util.Logger
 import com.realworld.io.util.Resource
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.CoroutineScope
@@ -32,7 +31,7 @@ class ArticleViewModel @Inject constructor(private val articalRepository: Reposi
                 val response = articalRepository.getArticle()
                 if (response.isSuccessful) {
                     articleList.postValue(Resource.Success(response.body()!!))
-                    roomRepository.insertRecords(response.body()!!.articles!!)
+                    roomRepository.insertRecords(response.body()!!.articles)
                 }else{
                     articleList.postValue(Resource.Error("API ERROR or SERVER IS DOWN"))
                 }

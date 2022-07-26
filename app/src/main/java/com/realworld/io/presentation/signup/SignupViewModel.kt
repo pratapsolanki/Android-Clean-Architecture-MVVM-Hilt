@@ -7,24 +7,21 @@ import com.realworld.io.domain.model.SignUpInput
 import com.realworld.io.domain.model.UserLoginResponse
 import com.realworld.io.util.Resource
 import dagger.hilt.android.lifecycle.HiltViewModel
-import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.launch
-import java.lang.Exception
 import javax.inject.Inject
 
 @HiltViewModel
-class SignupViewModel @Inject constructor(val articalRepository: Repositoryimpl) : ViewModel() {
+class SignupViewModel @Inject constructor(private val articleRepository: Repositoryimpl) : ViewModel() {
     private val _signUpState = MutableStateFlow<Resource<UserLoginResponse>>(Resource.Loading())
     val signUpUIState: StateFlow<Resource<UserLoginResponse>> = _signUpState
 
     fun signup(signUpInput: SignUpInput) = viewModelScope.launch {
         _signUpState.value = Resource.Loading()
         // fake network request time
-        val response = articalRepository.getSignup(signUpInput)
+        val response = articleRepository.getSignup(signUpInput)
         delay(2000L)
         if (response.isSuccessful) {
             _signUpState.value =Resource.Success(response.body()!!)
