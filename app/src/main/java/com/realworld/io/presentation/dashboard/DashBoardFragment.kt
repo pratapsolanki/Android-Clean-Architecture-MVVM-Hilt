@@ -6,7 +6,8 @@ import android.view.*
 import androidx.appcompat.widget.SearchView
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
-import androidx.lifecycle.Observer
+import androidx.lifecycle.Lifecycle
+import androidx.lifecycle.flowWithLifecycle
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -14,15 +15,17 @@ import com.realworld.io.MainActivity
 import com.realworld.io.R
 import com.realworld.io.databinding.FragmentDashBaordBinding
 import com.realworld.io.domain.model.ArticleX
+import com.realworld.io.presentation.dialog.ConfirmFragment
 import com.realworld.io.util.*
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.collectLatest
+import kotlinx.coroutines.flow.distinctUntilChanged
+import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 
 @AndroidEntryPoint
 class DashBoardFragment : Fragment() , ArticleAdapter.OnItemClickListener{
-
     private val viewModel : ArticleViewModel by viewModels()
     private  var _binding: FragmentDashBaordBinding?= null
     private val binding get() = _binding!!
@@ -36,6 +39,7 @@ class DashBoardFragment : Fragment() , ArticleAdapter.OnItemClickListener{
     ): View {
         _binding = FragmentDashBaordBinding.inflate(inflater,container,false)
         setHasOptionsMenu(true)
+
         return binding.root
     }
 
@@ -60,10 +64,6 @@ class DashBoardFragment : Fragment() , ArticleAdapter.OnItemClickListener{
         binding.progressBar.gone()
     }
 
-
-
-
-
     private fun logout() {
         tokenManager.logout()
         findNavController().navigate(R.id.action_dashBaord_to_loginFragment)
@@ -86,7 +86,7 @@ class DashBoardFragment : Fragment() , ArticleAdapter.OnItemClickListener{
     private fun onlineArticleObserver() {
         binding.shimmerLayout.stopShimmer()
         lifecycleScope.launchWhenCreated {
-            viewModel.articleUIState.collectLatest {
+            viewModel.articleUIState.collectLatest{
                 when (it) {
                     is Resource.Success -> {
                         it.data?.let {
@@ -121,22 +121,24 @@ class DashBoardFragment : Fragment() , ArticleAdapter.OnItemClickListener{
                 when (it) {
                     is Resource.Success -> {
                         it.data?.let {
-                            renderPhotosList(it as MutableList<ArticleX>)
+                                renderPhotosList(it)
+                                binding.shimmerLayout.stopShimmer()
+                                binding.shimmerLayout.gone()
+                                binding.articleRcv.visible()
+                            }
+                        }
+                    is Resource.Error -> {
                             binding.shimmerLayout.stopShimmer()
                             binding.shimmerLayout.gone()
                             binding.articleRcv.visible()
                         }
-                    }
-                    is Resource.Error -> {
-                        binding.shimmerLayout.stopShimmer()
-                        binding.shimmerLayout.gone()
-                        binding.articleRcv.visible()
-                    }
                     is Resource.Loading -> {
-                        binding.shimmerLayout.startShimmer()
-                    }
+                            binding.shimmerLayout.startShimmer()
+                        }
                 }
+
             }
+
         }
     }
 
@@ -151,9 +153,8 @@ class DashBoardFragment : Fragment() , ArticleAdapter.OnItemClickListener{
     }
 
     override fun itemClickLong(view: View, position: Int, article: ArticleX) {
-        if (flag == 0){
-           openDialog(article)
-        }
+        ConfirmFragment().show(
+            childFragmentManager, ConfirmFragment.TAG)
     }
 
     private fun openDialog(article: ArticleX) {

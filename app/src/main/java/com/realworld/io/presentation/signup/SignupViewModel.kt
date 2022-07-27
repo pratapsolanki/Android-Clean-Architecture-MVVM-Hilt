@@ -2,7 +2,7 @@ package com.realworld.io.presentation.signup
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.realworld.io.data.repo.Repositoryimpl
+import com.realworld.io.data.repo.RepositoryImpl
 import com.realworld.io.domain.model.SignUpInput
 import com.realworld.io.domain.model.UserLoginResponse
 import com.realworld.io.util.Resource
@@ -14,7 +14,7 @@ import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @HiltViewModel
-class SignupViewModel @Inject constructor(private val articleRepository: Repositoryimpl) : ViewModel() {
+class SignupViewModel @Inject constructor(private val articleRepository: RepositoryImpl) : ViewModel() {
     private val _signUpState = MutableStateFlow<Resource<UserLoginResponse>>(Resource.Loading())
     val signUpUIState: StateFlow<Resource<UserLoginResponse>> = _signUpState
 

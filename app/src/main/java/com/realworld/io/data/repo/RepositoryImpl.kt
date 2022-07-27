@@ -2,14 +2,15 @@ package com.realworld.io.data.repo
 
 
 import com.realworld.io.data.remote.ApiService
-import com.realworld.io.domain.model.Article
-import com.realworld.io.domain.model.LoginInput
-import com.realworld.io.domain.model.SignUpInput
-import com.realworld.io.domain.model.UserLoginResponse
+import com.realworld.io.domain.model.*
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.flow
+import kotlinx.coroutines.flow.flowOn
 import retrofit2.Response
 import javax.inject.Inject
 
-class Repositoryimpl @Inject constructor(private val apiService: ApiService)  {
+class RepositoryImpl @Inject constructor(private val apiService: ApiService)  {
      suspend fun getArticle(): Response<Article> = apiService.article()
 
      suspend fun getSignup(signUpInput: SignUpInput) : Response<UserLoginResponse> = apiService.signup(signUpInput)

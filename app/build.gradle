@@ -111,4 +111,6 @@ dependencies {
     // Memory Leak
     debugImplementation 'com.squareup.leakcanary:leakcanary-android:2.7'
 
+    implementation("androidx.compose.runtime:runtime-livedata:1.1.1")
+
 }

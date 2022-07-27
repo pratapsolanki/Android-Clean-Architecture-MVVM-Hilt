@@ -6,23 +6,23 @@ import javax.inject.Inject
 
 class RoomRepository @Inject constructor(private val appDao: AppDao) {
 
-    fun getRecords(): MutableList<ArticleX>{
+    suspend fun getRecords(): MutableList<ArticleX>{
         return appDao.getArticle()
     }
 
-    fun insertSingleArticle(article: ArticleX) : Long{
+    suspend fun insertSingleArticle(article: ArticleX) : Long{
         return appDao.insertSingleArticle(article)
     }
 
-    fun insertRecords(article: List<ArticleX>) {
+    suspend fun insertRecords(article: List<ArticleX>) {
         appDao.insertListArticle(article)
     }
 
-    fun deleteArticle(article: ArticleX){
+    suspend fun deleteArticle(article: ArticleX){
         appDao.deleteArticle(article)
     }
 
-    fun updateArticle(article: ArticleX) {
+    suspend fun updateArticle(article: ArticleX) {
         appDao.updateArticle(article)
     }
 

@@ -1,25 +1,27 @@
 package com.realworld.io.presentation.dashboard
 
-import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.realworld.io.data.repo.Repositoryimpl
+import com.realworld.io.data.dispatcher.DispatcherProviders
+import com.realworld.io.data.repo.RepositoryImpl
 import com.realworld.io.data.repo.RoomRepository
 import com.realworld.io.domain.model.Article
 import com.realworld.io.domain.model.ArticleX
-import com.realworld.io.domain.model.LoginInput
-import com.realworld.io.domain.model.UserLoginResponse
+import com.realworld.io.util.Logger
 import com.realworld.io.util.Resource
+import kotlinx.coroutines.flow.collect
+import kotlinx.coroutines.flow.catch
+import kotlinx.coroutines.flow.collect
+import kotlinx.coroutines.launch
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
-import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @HiltViewModel
-class ArticleViewModel @Inject constructor(private val articleRepository: Repositoryimpl, private val roomRepository: RoomRepository) : ViewModel() {
+class ArticleViewModel @Inject constructor(private val dispatcherImpl: DispatcherProviders, private val articleRepository: RepositoryImpl, private val roomRepository: RoomRepository) : ViewModel() {
 
     private val _articleState = MutableStateFlow<Resource<Article>>(Resource.Loading())
     val articleUIState: StateFlow<Resource<Article>> = _articleState
@@ -29,10 +31,13 @@ class ArticleViewModel @Inject constructor(private val articleRepository: Reposi
 
     fun fetchAllArticle() = viewModelScope.launch {
         _articleState.value = Resource.Loading()
+        Logger.d(articleUIState.value.toString() + "Loading")
+
         val response = articleRepository.getArticle()
         if (response.isSuccessful) {
             roomRepository.insertRecords(response.body()!!.articles)
             _articleState.value =Resource.Success(response.body()!!)
+            Logger.d(response.body().toString() + " Success")
         } else {
             _articleState.value = Resource.Error("No Data Found")
         }
@@ -41,7 +46,8 @@ class ArticleViewModel @Inject constructor(private val articleRepository: Reposi
     fun fetchOfflineArticle()=  viewModelScope.launch{
         _offlineArticleState.value = Resource.Loading()
         val response =  roomRepository.getRecords()
-        if (!response.isNullOrEmpty()) {
+
+        if (response.isNotEmpty()) {
             _offlineArticleState.value =Resource.Success(response)
         } else {
             _offlineArticleState.value = Resource.Error("No Data Found")
@@ -50,14 +56,14 @@ class ArticleViewModel @Inject constructor(private val articleRepository: Reposi
 
 
     fun deleteArticle(article: ArticleX){
-        CoroutineScope(Dispatchers.IO).launch {
+        CoroutineScope(dispatcherImpl.io).launch {
             roomRepository.deleteArticle(article)
             fetchOfflineArticle()
         }
     }
 
     fun updateArticle(article: ArticleX){
-        CoroutineScope(Dispatchers.IO).launch {
+        CoroutineScope(dispatcherImpl.io).launch {
             roomRepository.updateArticle(article)
             fetchOfflineArticle()
         }
