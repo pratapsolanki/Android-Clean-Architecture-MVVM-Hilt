@@ -7,6 +7,7 @@ import com.realworld.io.data.dispatcher.DispatcherProviders
 import com.realworld.io.data.repo.DispatcherImpl
 import com.realworld.io.domain.use_cases.ValidateEmail
 import com.realworld.io.domain.use_cases.ValidatePassword
+import com.realworld.io.domain.use_cases.ValidateUsername
 import com.realworld.io.domain.use_cases.ValidationResult
 import dagger.Module
 import dagger.Provides
@@ -31,21 +32,6 @@ object LocalModule {
         return appDB.getDAO()
     }
 
-    @Singleton
-    @Provides
-    fun getDispatcher() : DispatcherProviders {
-         return DispatcherImpl()
-    }
 
-    @Singleton
-    @Provides
-    fun getEmail() : ValidateEmail {
-        return ValidateEmail()
-    }
 
-    @Singleton
-    @Provides
-    fun getPassword() : ValidatePassword {
-        return ValidatePassword()
-    }
 }

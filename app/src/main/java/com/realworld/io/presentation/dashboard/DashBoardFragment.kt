@@ -6,8 +6,6 @@ import android.view.*
 import androidx.appcompat.widget.SearchView
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
-import androidx.lifecycle.Lifecycle
-import androidx.lifecycle.flowWithLifecycle
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -15,18 +13,17 @@ import com.realworld.io.MainActivity
 import com.realworld.io.R
 import com.realworld.io.databinding.FragmentDashBaordBinding
 import com.realworld.io.domain.model.ArticleX
-import com.realworld.io.presentation.dialog.ConfirmFragment
+import com.realworld.io.presentation.addarticle.LocalArticleViewModel
 import com.realworld.io.util.*
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.collectLatest
-import kotlinx.coroutines.flow.distinctUntilChanged
-import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 
 @AndroidEntryPoint
 class DashBoardFragment : Fragment() , ArticleAdapter.OnItemClickListener{
-    private val viewModel : ArticleViewModel by viewModels()
+    private val viewModel : DashBoardViewModel by viewModels()
+    private val localArticleViewModel : LocalArticleViewModel by viewModels()
     private  var _binding: FragmentDashBaordBinding?= null
     private val binding get() = _binding!!
     lateinit var articleAdapter: ArticleAdapter
@@ -50,9 +47,8 @@ class DashBoardFragment : Fragment() , ArticleAdapter.OnItemClickListener{
             flag = 1
         }else {
             flag = 0
-            viewModel.fetchOfflineArticle()
+            localArticleViewModel.fetchOfflineArticle()
         }
-
         bindObserver()
         iniRecyclerview()
         if (requireContext().isNetworkAvailable()){
@@ -117,7 +113,7 @@ class DashBoardFragment : Fragment() , ArticleAdapter.OnItemClickListener{
     private fun offlineArticleObserver() {
         binding.shimmerLayout.stopShimmer()
         lifecycleScope.launchWhenCreated {
-            viewModel.offlineArticleUIState.collectLatest {
+            localArticleViewModel.offlineArticleUIState.collectLatest {
                 when (it) {
                     is Resource.Success -> {
                         it.data?.let {
@@ -142,20 +138,6 @@ class DashBoardFragment : Fragment() , ArticleAdapter.OnItemClickListener{
         }
     }
 
-    override fun itemClick(view: View, position: Int, article: ArticleX) {
-        val action = DashBoardFragmentDirections.actionDashBaordToSignleArticle(article)
-        findNavController().navigate(action)
-    }
-
-    override fun btnClick(view: View, position: Int, article: ArticleX) {
-        findNavController().navigate(R.id.action_dashBaord_to_confirmFragment2)
-        articleAdapter.notifyDataSetChanged()
-    }
-
-    override fun itemClickLong(view: View, position: Int, article: ArticleX) {
-        ConfirmFragment().show(
-            childFragmentManager, ConfirmFragment.TAG)
-    }
 
     private fun openDialog(article: ArticleX) {
         val alertDialog = AlertDialog.Builder(requireContext())
@@ -175,7 +157,7 @@ class DashBoardFragment : Fragment() , ArticleAdapter.OnItemClickListener{
     }
 
     private fun navigateToUpdateFragment(article: ArticleX) {
-        val action = DashBoardFragmentDirections.actionDashBaordToEditFragment(article)
+        val action = DashBoardFragmentDirections.actionDashBaordToAddArticleFragment(false,article)
         findNavController().navigate(action)
     }
 
@@ -186,7 +168,7 @@ class DashBoardFragment : Fragment() , ArticleAdapter.OnItemClickListener{
             setTitle("Are You Really want to Delete it?")
             setMessage("This change cant be Revert....")
             setPositiveButton("Yes") { _, _ ->
-               viewModel.deleteArticle(article)
+                localArticleViewModel.deleteArticle(article)
             }
             setNegativeButton("No") { _, _ ->
 
@@ -215,11 +197,31 @@ class DashBoardFragment : Fragment() , ArticleAdapter.OnItemClickListener{
         super.onCreateOptionsMenu(menu, inflater)
     }
 
+
+    override fun itemClick(view: View, position: Int, article: ArticleX) {
+        val action = DashBoardFragmentDirections.actionDashBaordToSignleArticle(article)
+        findNavController().navigate(action)
+    }
+
+    override fun btnClick(view: View, position: Int, article: ArticleX) {
+        findNavController().navigate(R.id.action_dashBaord_to_confirmFragment2)
+        articleAdapter.notifyDataSetChanged()
+    }
+
+    override fun itemClickLong(view: View, position: Int, article: ArticleX) {
+        openDialog(article)
+//        ConfirmFragment().show(
+//            childFragmentManager, ConfirmFragment.TAG)
+    }
+
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
 
         when(item.itemId){
             R.id.add -> {
-                findNavController().navigate(R.id.action_dashBaord_to_addArticleFragment)
+                val action = DashBoardFragmentDirections.actionDashBaordToAddArticleFragment(true,
+                    ArticleX(tagList = listOf("fdsf","fdsfs"))
+                )
+                findNavController().navigate(action)
             }
             R.id.about ->{
                 findNavController().navigate(R.id.action_dashBaord_to_userprofile)

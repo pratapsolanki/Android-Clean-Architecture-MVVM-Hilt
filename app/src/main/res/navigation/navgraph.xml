@@ -107,7 +107,14 @@
         android:id="@+id/addArticleFragment"
         android:name="com.realworld.io.presentation.addarticle.AddArticleFragment"
         android:label="Add Article"
-        tools:layout="@layout/fragment_add_article" />
+        tools:layout="@layout/fragment_add_article" >
+        <argument
+            android:name="IsFrom"
+            app:argType="boolean" />
+        <argument
+            android:name="sampleData"
+            app:argType="com.realworld.io.domain.model.ArticleX" />
+    </fragment>
     <fragment
         android:id="@+id/editFragment"
         android:name="com.realworld.io.presentation.editarticle.EditFragment"

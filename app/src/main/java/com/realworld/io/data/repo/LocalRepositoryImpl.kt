@@ -4,7 +4,7 @@ import com.realworld.io.data.local.AppDao
 import com.realworld.io.domain.model.ArticleX
 import javax.inject.Inject
 
-class RoomRepository @Inject constructor(private val appDao: AppDao) {
+class LocalRepositoryImpl @Inject constructor(private val appDao: AppDao) {
 
     suspend fun getRecords(): MutableList<ArticleX>{
         return appDao.getArticle()

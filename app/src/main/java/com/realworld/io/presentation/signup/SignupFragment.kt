@@ -42,30 +42,45 @@ class SignupFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        binding.signUpBtn.setOnClickListener {
+        onClickListener()
+        bindObserver()
+        binding.progressBar.gone()
+    }
 
+    private fun onClickListener() {
+        binding.signUpBtn.setOnClickListener {
             if (!requireActivity().isNetworkAvailable()){
                 requireActivity().toast("No Internet Connected")
             }else{
-                val validationResult = checkValidation()
-                if (validationResult) {
-                    val signUpInput = SignUpInput(
-                        UserCommon(
-                            getUserRequest().email,
-                            getUserRequest().password,
-                            getUserRequest().username
-                        )
+                val signUpInput = SignUpInput(
+                    UserCommon(
+                        getUserRequest().email,
+                        getUserRequest().password,
+                        getUserRequest().username
                     )
-                    viewModel.signup(signUpInput)
-                }
+                )
+                viewModel.signup(signUpInput)
+                validation()
             }
         }
 
         binding.loginBtnText.setOnClickListener {
             findNavController().navigate(R.id.action_signupFragment_to_loginFragment)
         }
-        bindObserver()
     }
+
+    private fun validation() {
+        viewModel.state.email = getUserRequest().email
+        binding.inputEmail.error = viewModel.state.emailError
+
+        viewModel.state.password = getUserRequest().password
+        binding.inputPassword.error = viewModel.state.passwordError
+
+        viewModel.state.username = getUserRequest().username
+        binding.inputUsername.error = viewModel.state.usernameError
+
+    }
+
 
     private fun getUserRequest(): UserCommon {
         val email = binding.edtEmail.text.toString().trim()
@@ -74,30 +89,6 @@ class SignupFragment : Fragment() {
         return UserCommon(email, password, username)
     }
 
-    private fun checkValidation(): Boolean {
-        var returnValue = true
-        if (binding.edtEmail.text.toString().isBlank()) {
-            binding.inputEmail.error = "Email Should not be Blank"
-            returnValue = false
-        } else binding.inputEmail.error = null
-
-        if (binding.edtUsername.text.toString().isBlank()) {
-            binding.inputUsername.error = "Username Should not be Blank"
-            returnValue = false
-        } else binding.inputUsername.error = null
-
-        if (binding.edtPassword.text.toString().isBlank()) {
-            binding.inputPassword.error = "Password Should not be Blank"
-            returnValue = false
-        } else binding.inputPassword.error = null
-
-        if (binding.edtPassword.text.toString().trim().length <= 7) {
-            binding.inputPassword.error = "Password Should have 8 or longer"
-            returnValue = false
-        } else binding.inputPassword.error = null
-
-        return returnValue
-    }
 
     private fun bindObserver() {
         binding.progressBar.gone()
@@ -114,6 +105,7 @@ class SignupFragment : Fragment() {
                         binding.progressBar.gone()
                     }
                     is Resource.Loading -> {
+                        Logger.d("Loading")
                         binding.progressBar.visible()
                     }
                 }

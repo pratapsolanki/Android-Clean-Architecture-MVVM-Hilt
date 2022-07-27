@@ -10,7 +10,7 @@ import kotlinx.coroutines.flow.flowOn
 import retrofit2.Response
 import javax.inject.Inject
 
-class RepositoryImpl @Inject constructor(private val apiService: ApiService)  {
+class RemoteRepositoryImpl @Inject constructor(private val apiService: ApiService)  {
      suspend fun getArticle(): Response<Article> = apiService.article()
 
      suspend fun getSignup(signUpInput: SignUpInput) : Response<UserLoginResponse> = apiService.signup(signUpInput)
