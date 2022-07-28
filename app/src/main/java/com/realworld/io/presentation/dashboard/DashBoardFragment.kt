@@ -27,7 +27,6 @@ class DashBoardFragment : Fragment() , ArticleAdapter.OnItemClickListener{
     private  var _binding: FragmentDashBaordBinding?= null
     private val binding get() = _binding!!
     lateinit var articleAdapter: ArticleAdapter
-    private  var flag = 0
     @Inject lateinit var tokenManager: TokenManager
 
     override fun onCreateView(
@@ -36,21 +35,20 @@ class DashBoardFragment : Fragment() , ArticleAdapter.OnItemClickListener{
     ): View {
         _binding = FragmentDashBaordBinding.inflate(inflater,container,false)
         setHasOptionsMenu(true)
-
         return binding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        if (requireContext().isNetworkAvailable()){
-            viewModel.fetchAllArticle()
-            flag = 1
-        }else {
-            flag = 0
-            localArticleViewModel.fetchOfflineArticle()
-        }
         bindObserver()
         iniRecyclerview()
+
+        if (requireContext().isNetworkAvailable()){
+            viewModel.fetchAllArticle()
+        }else {
+            localArticleViewModel.fetchOfflineArticle()
+        }
+
         if (requireContext().isNetworkAvailable()){
             onlineArticleObserver()
         }else {
@@ -81,7 +79,7 @@ class DashBoardFragment : Fragment() , ArticleAdapter.OnItemClickListener{
 
     private fun onlineArticleObserver() {
         binding.shimmerLayout.stopShimmer()
-        lifecycleScope.launchWhenCreated {
+        lifecycleScope.launchWhenStarted {
             viewModel.articleUIState.collectLatest{
                 when (it) {
                     is Resource.Success -> {
@@ -103,6 +101,8 @@ class DashBoardFragment : Fragment() , ArticleAdapter.OnItemClickListener{
                 }
             }
         }
+
+
     }
 
     private fun renderPhotosList(articles: MutableList<ArticleX>) {
@@ -237,6 +237,7 @@ class DashBoardFragment : Fragment() , ArticleAdapter.OnItemClickListener{
         _binding = null
         super.onDestroy()
     }
+
 
 }
 

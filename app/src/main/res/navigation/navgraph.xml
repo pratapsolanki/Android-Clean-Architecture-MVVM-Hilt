@@ -41,7 +41,7 @@
             app:popUpTo="@id/loginFragment"
             app:popUpToInclusive="true" />
     </fragment>
-    <fragment
+     <fragment
         android:id="@+id/dashBaord"
         android:name="com.realworld.io.presentation.dashboard.DashBoardFragment"
         android:label="Articles"
@@ -70,10 +70,6 @@
             app:restoreState="true"
             android:id="@+id/action_dashBaord_to_addArticleFragment"
             app:destination="@id/addArticleFragment" />
-        <action
-            app:restoreState="true"
-            android:id="@+id/action_dashBaord_to_editFragment"
-            app:destination="@id/editFragment" />
 
         <action
             android:id="@+id/action_dashBaord_to_confirmFragment2"
@@ -114,16 +110,9 @@
         <argument
             android:name="sampleData"
             app:argType="com.realworld.io.domain.model.ArticleX" />
-    </fragment>
-    <fragment
-        android:id="@+id/editFragment"
-        android:name="com.realworld.io.presentation.editarticle.EditFragment"
-        android:label="Edit Article"
-        tools:layout="@layout/fragment_edit" >
-        <argument
-            android:name="sampleData"
-            app:argType="com.realworld.io.domain.model.ArticleX"
-            app:nullable="true"/>
+        <action
+            android:id="@+id/action_addArticleFragment_to_dashBaord"
+            app:destination="@id/dashBaord" />
     </fragment>
     <dialog
         android:id="@+id/confirmFragment2"

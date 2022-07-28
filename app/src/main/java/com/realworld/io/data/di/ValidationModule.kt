@@ -1,8 +1,6 @@
 package com.realworld.io.data.di
 
-import com.realworld.io.domain.use_cases.ValidateEmail
-import com.realworld.io.domain.use_cases.ValidatePassword
-import com.realworld.io.domain.use_cases.ValidateUsername
+import com.realworld.io.domain.use_cases.*
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -29,4 +27,24 @@ object ValidationModule {
     fun getUsername() : ValidateUsername {
         return ValidateUsername()
     }
+
+
+    @Singleton
+    @Provides
+    fun getTitle() : ValidateTitle {
+        return ValidateTitle()
+    }
+
+    @Singleton
+    @Provides
+    fun getShortDesc() : ValidateShortDesc {
+        return ValidateShortDesc()
+    }
+
+    @Singleton
+    @Provides
+    fun getDesc() : ValidateDesc {
+        return ValidateDesc()
+    }
+
 }

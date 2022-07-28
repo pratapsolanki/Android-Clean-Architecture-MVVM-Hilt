@@ -13,7 +13,9 @@ import com.realworld.io.R
 import com.realworld.io.databinding.FragmentAddArticleBinding
 import com.realworld.io.domain.model.ArticleX
 import com.realworld.io.domain.model.Author
+import com.realworld.io.presentation.dashboard.ArticleAdapter
 import com.realworld.io.util.TokenManager
+import com.realworld.io.util.isEmptyString
 import com.realworld.io.util.toast
 import dagger.hilt.android.AndroidEntryPoint
 import java.util.*
@@ -41,6 +43,7 @@ class AddArticleFragment : Fragment() {
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+
         if (args.isFrom){
             addArticle()
         }else{
@@ -84,11 +87,15 @@ class AddArticleFragment : Fragment() {
                     author = Author("", false, "", username)
                 )
                 viewModel.updateArticle(articleModel)
-                findNavController().popBackStack()
+                validation()
+                if ( validation()){
+                    findNavController().popBackStack()
+                }
 
             }
         }
     }
+
 
     private fun addArticle() {
         val languages = resources.getStringArray(R.array.programming_languages)
@@ -100,8 +107,7 @@ class AddArticleFragment : Fragment() {
         }
 
         binding.addArticleBtn.setOnClickListener {
-            val validationResult = checkValidation()
-            if (validationResult) {
+
                 val body = binding.edtBody.text.toString().trim()
                 val title = binding.edtTitle.text.toString().trim()
                 val desc = binding.edtDesc.text.toString().trim()
@@ -116,35 +122,26 @@ class AddArticleFragment : Fragment() {
                     createdAt = Date().toString(),
                     author = Author("", false, image = "", username = username)
                 )
-                viewModel.addArticle(articleModel)
+            viewModel.addArticle(articleModel)
+            if ( validation()){
                 findNavController().popBackStack()
             }
         }
     }
 
+    private fun validation()  :Boolean{
+            viewModel.state.title = binding.edtTitle.text.toString()
+            binding.inputTitle.error = viewModel.state.titleError
 
-    private fun checkValidation(): Boolean {
-        var returnValue = true
-        if (binding.edtBody.text.toString().trim().isBlank()) {
-            binding.inputBody.error = "Short Description can't be Empty"
-            returnValue = false
-        } else binding.inputBody.error = null
+            viewModel.state.shortDesc = binding.edtBody.text.toString()
+            binding.inputBody.error = viewModel.state.shortDescError
 
-        if (binding.edtTitle.text.toString().trim().isBlank()) {
-            binding.inputTitle.error = "Title can't be Empty"
-            returnValue = false
-        } else binding.inputTitle.error = null
+            viewModel.state.description = binding.edtDesc.text.toString()
+            binding.inputDesc.error = viewModel.state.descriptionError
 
-        if (binding.edtDesc.text.toString().trim().isBlank()) {
-            binding.inputDesc.error = "Description can't be Empty"
-            returnValue = false
-        } else binding.inputDesc.error = null
-
-        if(selectedText.isBlank()){
-            requireContext().toast("Please Select Tag")
-            returnValue = false
-        }
-        return returnValue
+        return binding.inputTitle.error.isNullOrEmpty()
+                && binding.inputBody.error.isNullOrEmpty()
+                && binding.inputDesc.error.isNullOrEmpty()
     }
 
     override fun onDestroy() {

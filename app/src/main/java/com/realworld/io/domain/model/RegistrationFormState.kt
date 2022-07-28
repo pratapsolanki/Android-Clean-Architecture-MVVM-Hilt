@@ -7,4 +7,10 @@ data class RegistrationFormState(
     val passwordError : String ?= null,
     var username :String ="",
     val usernameError : String ?= null,
+    var title :String ="",
+    val titleError : String ?= null,
+    var shortDesc :String ="",
+    val shortDescError : String ?= null,
+    var description :String ="",
+    val descriptionError : String ?= null,
 )
