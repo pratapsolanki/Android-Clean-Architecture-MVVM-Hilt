@@ -19,6 +19,10 @@ import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
+/**
+ * Login ViewModel
+ * Hilt ViewModel will create entry point for ViewModel
+ */
 @HiltViewModel
 class LoginViewModel @Inject constructor(
     private val articleRepository: RemoteRepositoryImpl,
@@ -31,6 +35,9 @@ class LoginViewModel @Inject constructor(
     private val _loginState = MutableStateFlow<Resource<UserLoginResponse>>(Resource.Loading())
     val loginUIState: StateFlow<Resource<UserLoginResponse>> = _loginState
 
+    /**
+     * Login With State Flow
+     */
     fun loginWithState(loginInput: LoginInput) {
         val emailResult = validateEmail.execute(loginInput.user.email)
         val passwordResult = validatePassword.execute(loginInput.user.password)

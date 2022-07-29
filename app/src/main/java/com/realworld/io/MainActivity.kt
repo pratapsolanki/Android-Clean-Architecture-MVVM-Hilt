@@ -10,7 +10,10 @@ import androidx.navigation.ui.setupActionBarWithNavController
 import com.realworld.io.databinding.ActivityMainBinding
 import dagger.hilt.android.AndroidEntryPoint
 
-
+/**
+ * MainActivity
+ * @AndroidEntryPoint - This annotation will generate a entry point for di
+ */
 @AndroidEntryPoint
 class MainActivity : AppCompatActivity() {
 
@@ -23,7 +26,7 @@ class MainActivity : AppCompatActivity() {
         setContentView(binding.root)
         setSupportActionBar(binding.topAppBar)
 
-
+        //showing NavHost in mainActivity
         val navHostFragment = supportFragmentManager
             .findFragmentById(R.id.nav_host_fragment) as NavHostFragment
         navController = navHostFragment.navController

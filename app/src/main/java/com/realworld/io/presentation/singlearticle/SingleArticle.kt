@@ -8,6 +8,9 @@ import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.navArgs
 import com.realworld.io.databinding.FragmentSignleArticleBinding
 
+/**
+ * Single Article  Fragment
+ */
 class SingleArticle : Fragment() {
 
     private  var _binding: FragmentSignleArticleBinding?= null
@@ -25,6 +28,7 @@ class SingleArticle : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
 
+        //Get argument and showing value
         binding.apply{
             args.singleArticle.let {
                 category.text = it.tagList.toString()

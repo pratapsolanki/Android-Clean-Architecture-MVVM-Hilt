@@ -20,6 +20,10 @@ import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
+/**
+ * Signup View Model
+ * Hilt ViewModel will create entry point for ViewModel
+ */
 @HiltViewModel
 class SignupViewModel @Inject constructor(
     private val articleRepository: RemoteRepositoryImpl,
@@ -34,6 +38,9 @@ class SignupViewModel @Inject constructor(
     private val _signUpState = MutableStateFlow<Resource<UserLoginResponse>>(Resource.Loading())
     val signUpUIState: StateFlow<Resource<UserLoginResponse>> = _signUpState
 
+    /**
+     * Signup
+     */
     fun signup(signUpInput: SignUpInput){
         val emailResult = validateEmail.execute(signUpInput.user.email)
         val passwordResult = validatePassword.execute(signUpInput.user.password)
@@ -55,6 +62,9 @@ class SignupViewModel @Inject constructor(
             usernameError = usernameResult.errorMessage,
         )
         if(hasError) { return }
+        /**
+         * If there is no error this ViewModel scope will lanuch
+         */
         viewModelScope.launch {
             _signUpState.value = Resource.Loading()
             val response = articleRepository.getSignup(signUpInput)

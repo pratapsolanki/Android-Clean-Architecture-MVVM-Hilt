@@ -21,7 +21,7 @@ import javax.inject.Inject
 
 /**
  * Dashboard Article Fragment
- * Hilt view model will create entry point for view model
+ * Hilt view model will create entry point for Fragment
  */
 @AndroidEntryPoint
 class DashBoardFragment : Fragment() , ArticleAdapter.OnItemClickListener{

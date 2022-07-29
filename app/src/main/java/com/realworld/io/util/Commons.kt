@@ -5,7 +5,6 @@ import android.app.Activity
 import android.content.Context
 import android.content.Intent
 import android.graphics.Color
-import android.graphics.drawable.ColorDrawable
 import android.location.Geocoder
 import android.net.ConnectivityManager
 import android.net.NetworkCapabilities
@@ -39,7 +38,9 @@ import java.text.SimpleDateFormat
 import java.util.*
 import kotlin.math.roundToInt
 
-
+/**
+ * Common function
+ */
 fun View.gone() {
     this.visibility = View.GONE
 }

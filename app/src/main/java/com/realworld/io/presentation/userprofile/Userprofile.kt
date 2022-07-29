@@ -8,6 +8,10 @@ import com.realworld.io.R
 import com.realworld.io.databinding.FragmentUserprofileBinding
 
 
+/**
+ * Userprofile  Fragment
+ * This Fragment is not doing anything
+ */
 class Userprofile : Fragment() {
     private  var _binding: FragmentUserprofileBinding?= null
     private val binding get() = _binding!!

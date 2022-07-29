@@ -4,6 +4,10 @@ import android.content.Context
 import android.content.SharedPreferences
 import com.realworld.io.BaseApplication
 
+
+/**
+ * Global SharedPreferences
+ */
 object SharedPrefHelper {
 
     private const val SHARED_PREFS_NAME = "myPref"
@@ -13,6 +17,7 @@ object SharedPrefHelper {
     private var sharedPreferences: SharedPreferences =
         BaseApplication.getInstance()
             .getSharedPreferences(SHARED_PREFS_NAME, Context.MODE_PRIVATE)
+
 
     fun save(key: String, value: Any?) {
         val editor = sharedPreferences.edit()

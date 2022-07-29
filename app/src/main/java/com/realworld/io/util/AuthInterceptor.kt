@@ -5,6 +5,9 @@ import com.realworld.io.util.Constants.USER_TOKEN
 import okhttp3.Interceptor
 import okhttp3.Response
 
+/**
+ * AuthInterceptor for managing header auth Token
+ */
 class AuthInterceptor (context: Context) : Interceptor {
     private val sessionManager = TokenManager(context)
 

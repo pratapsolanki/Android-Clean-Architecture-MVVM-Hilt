@@ -17,14 +17,16 @@ import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.collectLatest
 import javax.inject.Inject
 
+/**
+ * LoginFragment Article Fragment
+ * Hilt view model will create entry point for view model
+ */
 @AndroidEntryPoint
 class LoginFragment : Fragment() {
     private val viewModel : LoginViewModel by viewModels()
     private  var _binding: FragmentLoginBinding?= null
     private val binding get() = _binding!!
     @Inject lateinit var  tokenManager: TokenManager
-
-
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -48,8 +50,10 @@ class LoginFragment : Fragment() {
     }
 
     private fun onClickListener() {
+        //Login Button click
         binding.loginBtn.setOnClickListener {
             if (requireActivity().isNetworkAvailable()) {
+                //Passing value to ViewModel
                 viewModel.loginWithState(
                     LoginInput(
                         User(
@@ -63,12 +67,15 @@ class LoginFragment : Fragment() {
                 requireActivity().toast("No Internet Connected")
             }
         }
-
+        //SignIn Button
         binding.signInBtn.setOnClickListener {
             findNavController().navigate(R.id.action_loginFragment_to_signupFragment)
         }
     }
 
+    /**
+     * Validation logic
+     */
     private fun validation() {
         viewModel.state.email = getUserRequest().email
         binding.inputEmail.error = viewModel.state.emailError
@@ -79,6 +86,9 @@ class LoginFragment : Fragment() {
     }
 
 
+    /**
+     * Observer
+     */
     private fun bindObserver() {
         lifecycleScope.launchWhenCreated {
             viewModel.loginUIState.collectLatest {

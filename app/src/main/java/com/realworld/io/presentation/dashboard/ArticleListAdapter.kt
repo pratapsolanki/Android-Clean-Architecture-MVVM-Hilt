@@ -10,7 +10,9 @@ import com.realworld.io.databinding.SingleArticleBinding
 import com.realworld.io.domain.model.ArticleX
 import com.realworld.io.util.loadImage
 
-
+/**
+ * Article adapter For showing recyclerview Data
+ */
 class ArticleAdapter(private val listener: OnItemClickListener) : RecyclerView.Adapter<MainViewHolder>() ,Filterable{
 
     //original list

@@ -3,6 +3,9 @@ package com.realworld.io.util
 import android.util.Log
 import com.realworld.io.BuildConfig
 
+/**
+ * Global Log class (don't need to write log.d everytime)
+ */
 class Logger {
     companion object {
 

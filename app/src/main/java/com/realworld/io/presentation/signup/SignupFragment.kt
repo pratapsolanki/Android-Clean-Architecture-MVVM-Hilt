@@ -17,6 +17,10 @@ import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.collectLatest
 import javax.inject.Inject
 
+/**
+ * SignupFragment Article Fragment
+ * Hilt view model will create entry point for view model
+ */
 @AndroidEntryPoint
 class SignupFragment : Fragment() {
 
@@ -47,6 +51,9 @@ class SignupFragment : Fragment() {
         binding.progressBar.gone()
     }
 
+    /**
+     * click event handle
+     */
     private fun onClickListener() {
         binding.signUpBtn.setOnClickListener {
             if (!requireActivity().isNetworkAvailable()){
@@ -69,6 +76,9 @@ class SignupFragment : Fragment() {
         }
     }
 
+    /**
+     * validation logic
+     */
     private fun validation() {
         viewModel.state.email = getUserRequest().email
         binding.inputEmail.error = viewModel.state.emailError
@@ -82,6 +92,9 @@ class SignupFragment : Fragment() {
     }
 
 
+    /**
+     * get user detail (easy to maintain)
+     */
     private fun getUserRequest(): UserCommon {
         val email = binding.edtEmail.text.toString().trim()
         val password = binding.edtPassword.text.toString().trim()
@@ -89,7 +102,9 @@ class SignupFragment : Fragment() {
         return UserCommon(email, password, username)
     }
 
-
+    /**
+     * bindObserver
+     */
     private fun bindObserver() {
         binding.progressBar.gone()
         lifecycleScope.launchWhenCreated {
