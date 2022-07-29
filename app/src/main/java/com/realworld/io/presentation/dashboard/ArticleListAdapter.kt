@@ -13,7 +13,9 @@ import com.realworld.io.util.loadImage
 
 class ArticleAdapter(private val listener: OnItemClickListener) : RecyclerView.Adapter<MainViewHolder>() ,Filterable{
 
+    //original list
     private  var articleList: ArrayList<ArticleX> = ArrayList()
+    //Filter list
     private  var articleFilterList: ArrayList<ArticleX>  = ArrayList()
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MainViewHolder {
@@ -30,24 +32,30 @@ class ArticleAdapter(private val listener: OnItemClickListener) : RecyclerView.A
         holder.binding.userName.text = article.author.username
         holder.itemView.context.loadImage(holder.binding.userIcon, article.author.image)
 
+        //Item click
         holder.itemView.setOnClickListener {
             listener.itemClick(it, position, article)
         }
 
+        //Item Long click
         holder.itemView.setOnLongClickListener {
             listener.itemClickLong(it, position, article)
             false
         }
+
+        //Button click
         holder.binding.changeBtn.setOnClickListener {
             listener.btnClick(it, position, article)
         }
 
     }
 
+    //return list size
     override fun getItemCount(): Int {
         return articleFilterList.size
     }
 
+    //Register Interface click
     interface OnItemClickListener {
         fun itemClick(view: View, position: Int, article: ArticleX)
         fun btnClick(view: View, position: Int, article: ArticleX)
@@ -55,13 +63,14 @@ class ArticleAdapter(private val listener: OnItemClickListener) : RecyclerView.A
     }
 
 
+    //SetData and initialize list
     fun setData(articleModel: List<ArticleX>) {
        articleList = articleModel as ArrayList<ArticleX>
        articleFilterList = articleList
         notifyDataSetChanged()
     }
 
-
+    //Filter function
     override fun getFilter(): Filter {
         return object : Filter() {
             override fun performFiltering(constraint: CharSequence?): FilterResults {
@@ -95,7 +104,5 @@ class ArticleAdapter(private val listener: OnItemClickListener) : RecyclerView.A
             }
         }
     }
-
-
 }
 class MainViewHolder(var binding: SingleArticleBinding) : RecyclerView.ViewHolder(binding.root)

@@ -12,6 +12,10 @@ import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
+/**
+ * Dashboard Article ViewModel
+ * Hilt ViewModel will create entry point for ViewModel
+ */
 @HiltViewModel
 class DashBoardViewModel @Inject constructor(private val articleRepository: RemoteRepositoryImpl,
                                              private val roomRepository: LocalRepositoryImpl) : ViewModel() {
@@ -20,6 +24,9 @@ class DashBoardViewModel @Inject constructor(private val articleRepository: Remo
     private val _articleState = MutableStateFlow<Resource<Article>>(Resource.Loading())
     val articleUIState = _articleState.asStateFlow()
 
+    /**
+     * FetchAll article from api
+     */
      fun fetchAllArticle() = viewModelScope.launch {
         val response = articleRepository.getArticle()
         _articleState.emit(Resource.Loading())

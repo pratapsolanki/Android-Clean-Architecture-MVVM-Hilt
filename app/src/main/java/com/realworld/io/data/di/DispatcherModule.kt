@@ -8,6 +8,9 @@ import dagger.hilt.InstallIn
 import dagger.hilt.components.SingletonComponent
 import javax.inject.Singleton
 
+/**
+ * Providing Dispatcher dependency
+ */
 @Module
 @InstallIn(SingletonComponent::class)
 object DispatcherModule {

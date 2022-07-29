@@ -11,7 +11,9 @@ import retrofit2.http.Body
 import retrofit2.http.GET
 import retrofit2.http.POST
 
-
+/**
+ * ApiService for access your remote data via api.
+ */
 interface ApiService {
 
     @POST(ApiConstants.SIGNUP)

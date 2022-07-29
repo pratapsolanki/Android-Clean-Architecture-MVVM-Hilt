@@ -1,5 +1,9 @@
 package com.realworld.io.domain.use_cases
 
+
+/**
+ * Use Case for validation of Description
+ */
 class ValidateDesc {
     fun execute(description :String) :ValidationResult{
         if (description.isBlank()){

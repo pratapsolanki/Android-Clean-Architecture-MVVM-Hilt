@@ -10,6 +10,9 @@ import androidx.fragment.app.DialogFragment
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import com.realworld.io.databinding.FragmentConfirmBinding
 
+/**
+ * Will use in Future
+ */
 class ConfirmFragment : DialogFragment() {
 
     private  var _binding: FragmentConfirmBinding?= null

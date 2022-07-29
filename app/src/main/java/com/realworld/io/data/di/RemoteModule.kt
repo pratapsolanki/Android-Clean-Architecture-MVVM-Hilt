@@ -13,10 +13,17 @@ import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 import javax.inject.Singleton
 
+
+/**
+ * Providing Remote dependency for DI
+ */
 @InstallIn(SingletonComponent::class)
 @Module
 class RemoteModule {
 
+    /**
+     * Providing retrofit dependency for DI
+     */
     @Singleton
     @Provides
     fun provideRetrofit(): Retrofit {
@@ -26,12 +33,18 @@ class RemoteModule {
             .build()
     }
 
+    /**
+     * Providing retrofit instance
+     */
     @Singleton
     @Provides
     fun provideApiClient(retrofit: Retrofit): ApiService {
         return retrofit.create(ApiService::class.java)
     }
 
+    /**
+     * Providing HTTP dependency for DI
+     */
     @Singleton
     @Provides
     fun okhttpClient(context: Context): OkHttpClient {

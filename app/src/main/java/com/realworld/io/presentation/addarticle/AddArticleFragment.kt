@@ -21,7 +21,9 @@ import dagger.hilt.android.AndroidEntryPoint
 import java.util.*
 import javax.inject.Inject
 
-
+/**
+ * Add OR Edit Article Fragment
+ */
 @AndroidEntryPoint
 class AddArticleFragment : Fragment() {
 
@@ -43,7 +45,7 @@ class AddArticleFragment : Fragment() {
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-
+        //Check the argument if add or update article
         if (args.isFrom){
             addArticle()
         }else{
@@ -54,6 +56,9 @@ class AddArticleFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
     }
 
+    /**
+     * Edit Article Function
+     */
     private fun editArticle() {
         val languages = resources.getStringArray(R.array.programming_languages)
         val arrayAdapter = ArrayAdapter(requireContext(), R.layout.dropdown_item, languages)
@@ -96,7 +101,9 @@ class AddArticleFragment : Fragment() {
         }
     }
 
-
+    /**
+     * Add Article Function
+     */
     private fun addArticle() {
         val languages = resources.getStringArray(R.array.programming_languages)
         val arrayAdapter = ArrayAdapter(requireContext(), R.layout.dropdown_item, languages)
@@ -129,6 +136,9 @@ class AddArticleFragment : Fragment() {
         }
     }
 
+    /**
+     * Validation Form Function
+     */
     private fun validation()  :Boolean{
             viewModel.state.title = binding.edtTitle.text.toString()
             binding.inputTitle.error = viewModel.state.titleError
@@ -144,6 +154,9 @@ class AddArticleFragment : Fragment() {
                 && binding.inputDesc.error.isNullOrEmpty()
     }
 
+    /**
+     * Delete Object for more efficient app and no memory loss
+     */
     override fun onDestroy() {
         _binding = null
         super.onDestroy()
